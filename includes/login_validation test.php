@@ -25,7 +25,7 @@ if (!isset($_SESSION['loggedIn'])) {
         $database_password = $credentials_row['passwords'];
         if (password_verify($password, $database_password)) {
             $_SESSION['loggedIn'] = true;
-            $user_id = $credentials_row["user_id"];
+            $user_id = $credentials_result->fetch_assoc()["user_id"];
             $_SESSION['user_id'] = $user_id;
             $members_result = mysqli_query($conn, "SELECT * FROM members WHERE user_id= $user_id");
             $members_row = $members_result->fetch_assoc();

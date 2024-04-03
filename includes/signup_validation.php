@@ -34,7 +34,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $sql2 = "INSERT INTO credentials (user_id, email, passwords ) values ($last_id,'$email','$password_hashed')";
         mysqli_query($conn, $sql2);
-        header("location: ../google.php");
+        echo "<script type='text/javascript'>alert('Sign Up Completed');</script>";
+        header("location: ../index.php");
     } else {
         $_SESSION["error"] = ".";
         echo "<script> window.location.href= '../signup.php'; </script>";

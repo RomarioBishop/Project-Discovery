@@ -96,7 +96,7 @@ session_start();
         }
     </script>
 
-    <div class="login-page">
+    <div class="signup-page">
         <div class="container">
             <div class="info">
 

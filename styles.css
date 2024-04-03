@@ -34,6 +34,13 @@
   background-color: rgb(32, 35, 48);
 }
 
+.signup-page {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(255, 99, 71);
+}
 /* Header of Form Text */
 
 #welcome {
