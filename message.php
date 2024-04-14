@@ -26,13 +26,14 @@ if (!isset($_SESSION['loggedIn'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" type="image/x-icon" href="./Images/Favicon/favicon.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <meta name="author" content="Ode Millington">
     <meta name="author" content="Romario Bishop">
     <title>WeWaffle | Messaging</title>
     <script src="https://kit.fontawesome.com/10a23fabac.js" crossorigin="anonymous"></script>
 </head>
 
-<body>
+<body class="main-body">
 
 
 
@@ -79,206 +80,80 @@ if (!isset($_SESSION['loggedIn'])) {
     ?>
 
 
-    <div class="message-container">
+    <div class="containter">
 
-
-        <div class="menu">
-
-
-
-            <div class=menuCompanyName>
-                <p>WeWaffle</p>
-            </div>
-
-            <div class="userInfo">
+        <aside class="sidebar">
+            <nav>
+                <div class="logo-name">
+                    <img src="images/logo.png" alt="company logo">
+                    <p>Project<span style="color:#567de8;;">Discovery </span></p>
+                </div>
                 <div class="userProfile">
                     <div class="ProfileBox">
                         <?php echo strtoupper(substr($_SESSION['firstName'], 0, 2))  ?>
                     </div>
 
                     <div class="username">
-                        <p id="displayName"><?php echo $_SESSION['firstName'] ?></p>
-                        <p id="displayRole"><?php echo $_SESSION['userRole'] ?> </p>
+                        <p id="displayName">
+                            <?php echo $_SESSION['firstName'] ?>
+                        </p>
+                        <p id="displayRole">
+                            <?php echo $_SESSION['userRole'] ?>
+                        </p>
                     </div>
                 </div>
-            </div>
+                <div class="menu-items">
+                    <ul>
+                        <li><a href="dashboard.php">
+                                <i class="fa-sharp fa-solid fa-gauge"></i>
+                                <span class="link-name">Dashboard</span>
+                            </a>
+                        </li>
+                        <li><a href="subscriptons.php">
+                                <i class="fa-solid fa-circle-dollar-to-slot"></i>
+                                <span class="link-name">Subscriptions</span>
+                            </a>
+                        </li>
+                        <li><a href="community.php">
+                                <i class="fa-solid fa-clock"></i>
+                                <span class="link-name">Community Service</span>
+                            </a>
+                        </li>
+                        <li><a href="settings.php">
+                                <i class="fa-solid fa-gear"></i>
+                                <span class="link-name">Settings</span>
+                            </a>
+                        </li>
+                    </ul>
 
-            <div class="menuOptions">
+                    <ul>
+                        <li><a href="logout.php">
+                                <i class="fa-solid fa-right-from-bracket"></i>
+                                <span class="link-name"> Logout</span>
+                            </a>
+                        </li>
+                        <li><a href="#">
+                                <i class="fa-solid fa-cloud-moon" style="color: #ffffff;"></i>
+                                <span class="link-name"> Light Mode</span>
+                            </a>
+                        </li>
 
-
-                <div class="topMenu">
-                    <p id="inbox"><a href="message.php"> <span class="active-page">
-                                <i class="fa-solid fa-inbox" style="color: #ffffff;"></i> Inbox </span> </a></p>
-                    <p id="createMsg"><a href="create_message.php">Create Message</a></p>
-                    <p id="msgSummary"><a href="message_summary.php">Message Summary</a></p>
-
-                    <?php
-                    if ($_SESSION['userRole'] == "Admin") {
-                        echo '<p id="searchMsg"><a href="search_message.php">Search Messages</a></p>';
-                        echo '<p id="delNotice"><a href="delete_notice.php">Delete Notice</a></p>';
-                    }
-
-                    ?>
+                    </ul>
                 </div>
+            </nav>
+        </aside>
+        <main class="main">
 
-                <div class="bottomMenu">
-                    <p id="about"><a href="about.php">About</a></p>
-                    <p id="logout"><a href="logout.php">Log Out</a></p>
-                </div>
-
-            </div>
-        </div>
-
-
-        <div class="message-body">
-
-            <div class="inbox-left">
-
-                <div class="inbox-header">
-                    <h2> Unread Messages </h2>
-
-                </div>
-
-                <div class="inbox-messages-holder">
-
-                    <?php
-
-                    $getmessages = mysqli_query($conn, "SELECT * FROM message WHERE receiver='$email' AND status='unread' ORDER BY datesent DESC");
-                    if ($getmessages->num_rows > 0) {
-                        while ($rowMsg = $getmessages->fetch_assoc()) {
-
-                            $dateTimeFromDatabase = $rowMsg['datesent'];
-
-                            // Create a DateTime object
-                            $dateObject = new DateTime($dateTimeFromDatabase);
-
-                            // Format the time to get the 12-hour time with AM/PM
-                            $timeIn12HourFormat = $dateObject->format('h:i:s A'); // 'h' means 12-hour format, 'i' for minutes, 's' for seconds, 'A' for AM/PM
-
-                            $dateInYYYYMMDDFormat = $dateObject->format('Y/m/d');
-
-                            echo "
-                                        <div class='inbox-messages'>
-                                    
-                                            <div class='message-info'>
-                                                <div class='sender'>
-                                                    <p>From: " . $rowMsg['sender'] . "</p>
-                                                </div>
-
-                                                <div class='date'>
-                                                    <h4>" . $dateInYYYYMMDDFormat . " - " . $timeIn12HourFormat . "</h4>
-                                                </div>
-                                            </div>
-                                            
-                                            <div class ='message-title'>
-                                                <h3> " . $rowMsg['messageTitle'] . "</h3>
-                                            </div>
-                                
-                                            <div class ='message-content'>
-                                                <p> " . $rowMsg['message'] . " </p>
-                                                
-                                            </div>
-                                            
-                                        </div>";
-                        }
-                    }
-                    ?>
-
-                </div>
+            <div class="heading">
 
             </div>
 
+            <div class="content">
 
-            <div class="inbox-right">
-
-                <div class="notices">
-
-                    <div class="notices-header">
-                        <h1> Notices! </h1>
-
-                    </div>
-
-                    <div class="notices-messages-holder">
-                        <?php
-
-                        $getmessages = mysqli_query($conn, "SELECT * FROM message WHERE receiver='everyone' ORDER BY datesent DESC");
-                        if ($getmessages->num_rows > 0) {
-                            while ($rowMsg = $getmessages->fetch_assoc()) {
-
-                                $dateTimeFromDatabase = $rowMsg['datesent'];
-
-                                // Create a DateTime object
-                                $dateObject = new DateTime($dateTimeFromDatabase);
-
-                                // Format the time to get the 12-hour time with AM/PM
-                                $timeIn12HourFormat = $dateObject->format('h:i:s A'); // 'h' means 12-hour format, 'i' for minutes, 's' for seconds, 'A' for AM/PM
-
-                                $dateInYYYYMMDDFormat = $dateObject->format('Y/m/d');
-
-                                echo "
-                                            <div class='notice-messages'>
-                                        
-                                                <div class='notice-info'>
-
-                                                    <div class='date'>
-                                                        <h4>" . $dateInYYYYMMDDFormat . " - " . $timeIn12HourFormat . "</h4>
-                                                    </div>
-                                                </div>
-                                                
-                                                <div class ='notice-title'>
-                                                    <h3> " . $rowMsg['messageTitle'] . "</h3>
-                                                </div>
-                                    
-                                                <div class ='notice-content'>
-                                                    <p> " . $rowMsg['message'] . " </p>
-                                                    
-                                                </div>
-                                                
-                                            </div>";
-                            }
-                        }
-                        ?>
-
-                    </div>
-
-                </div>
-
-                <div class="mark-read">
-
-                    <div class="mark-read-header">
-                        <h2> Mark Messages As Read </h2>
-                    </div>
-
-                    <div class="mark-read-function">
-                        <form action='./Redirect Pages/return_markread.php' method='POST'>
-
-                            <label for="message-title">Select Message Title: </label>
-                            <select name="message-title" id="message-title">
-
-                                <option value='None'> None</option>
-                                <option value='Read All'> Read All </option>
-                                <?php
-                                $getTitles = mysqli_query($conn, "SELECT * FROM message WHERE receiver!='everyone' AND receiver ='$email' AND status ='unread'");
-                                if (mysqli_num_rows($getTitles) > 0) {
-                                    while ($rowTitle = $getTitles->fetch_assoc()) {
-                                        $title = $rowTitle['messageTitle'];
-
-                                        echo "<option value='$title'> $title </option>";
-                                    }
-                                }
-
-                                ?>
-                            </select>
-                            <input type="submit" value="enter" name="titleread">
-                        </form>
-
-                    </div>
-
-                </div>
             </div>
 
+        </main>
 
-        </div>
     </div>
 
 </body>

@@ -49,7 +49,7 @@ session_start();
     </script>
 
     <div class="login-page">
-        <div class="container">
+        <div class="index-container">
             <div class="info">
 
                 <div>
