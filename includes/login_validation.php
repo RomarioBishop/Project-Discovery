@@ -33,10 +33,10 @@ if (!isset($_SESSION['loggedIn'])) {
             $_SESSION['firstName'] = $members_row["first_name"];
             $_SESSION['lastName'] = $members_row["last_name"];
 
-            if ($_SESSION['userRole'] == "admin") {
+            if ($_SESSION['userRole'] == "Admin") {
                 echo "<script> window.location.href= '../admin.php'; </script>";
             } else {
-                echo "<script> window.location.href= '../message.php'; </script>";
+                echo "<script> window.location.href= '../member.php'; </script>";
             }
         } else {
             $_SESSION['error'] = ".";

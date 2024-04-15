@@ -9,7 +9,6 @@ $conn = mysqli_connect("localhost", "root", "", "pd_membersystem");
 
 
 
-
 if (!isset($_SESSION['loggedIn']) || $_SESSION['userRole'] !== "Admin") {
     $_SESSION['error'] = ".";
     echo "<script> window.location.href= 'index.php'; </script>";
@@ -156,6 +155,8 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['userRole'] !== "Admin") {
                 });
             </script>
         </aside>
+
+
         <main class="main">
 
             <div class="heading">

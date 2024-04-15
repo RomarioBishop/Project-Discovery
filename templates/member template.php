@@ -10,7 +10,7 @@ $conn = mysqli_connect("localhost", "root", "", "pd_membersystem");
 
 
 
-if (!isset($_SESSION['loggedIn']) || $_SESSION['userRole'] !== "Admin") {
+if (!isset($_SESSION['loggedIn']) || $_SESSION['userRole'] !== "Member") {
     $_SESSION['error'] = ".";
     echo "<script> window.location.href= 'index.php'; </script>";
     exit();

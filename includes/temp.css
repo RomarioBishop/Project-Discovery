@@ -1,7 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap");
-@import url("https://cdn.jsdelivr.net/npm/@xz/fonts@1/serve/nevermind.min.css");
-@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-
 /* darkmode variables */
 :root {
   --main-bg-color: #c3c5ca;
@@ -30,6 +26,10 @@ body.dark {
   --panel-color: white;
 }
 
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap");
+@import url("https://cdn.jsdelivr.net/npm/@xz/fonts@1/serve/nevermind.min.css");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
 * {
   box-sizing: border-box;
   padding: 0;
@@ -38,228 +38,6 @@ body.dark {
   text-decoration: none;
   list-style-type: none;
 }
-
-.gosignup {
-  font-family: "Poppins", sans-serif;
-}
-::-webkit-scrollbar {
-  width: 0.6em;
-}
-
-::-webkit-scrollbar-track {
-  background-color: aliceblue;
-  border-bottom-right-radius: 15px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: rgb(32, 35, 48);
-  height: 5px;
-  border-radius: 15px;
-}
-
-.login-page {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgb(32, 35, 48);
-}
-
-.signup-page {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgb(255, 99, 71);
-}
-/* Header of Form Text */
-
-#welcome {
-  font-family: "Poppins", sans-serif;
-  font-size: 25px;
-  text-align: center;
-  border-bottom: 3px solid;
-  font-weight: 400;
-}
-
-#welcome:hover {
-  transform: translateY(-5px);
-}
-
-#companyName {
-  margin: 0px;
-  font-family: "Poppins", sans-serif;
-  font-weight: bold;
-  font-size: 40px;
-  font-weight: 500;
-}
-
-.info {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 0.5rem;
-  gap: 0.5em;
-}
-
-.gosignup {
-  text-align: center;
-}
-/* End of Header Text */
-
-.index-container {
-  padding: 50px 100px;
-  max-width: 600px;
-  background-color: white;
-  display: flex;
-  flex-direction: column;
-  border: 1px solid white;
-  border-radius: 25px;
-  gap: 10px;
-  justify-content: center;
-  align-items: center;
-}
-
-@media screen and (max-width: 600px) {
-  .index-container {
-    padding: 50px 50px;
-    max-width: 550px;
-  }
-}
-
-@media screen and (max-width: 400px) {
-  .index-container {
-    padding: 50px 15px;
-    max-width: 550px;
-  }
-}
-
-.form-crt {
-  width: 100%;
-}
-
-/* Form Element Formatting */
-
-.items {
-  display: flex;
-  flex-direction: column;
-  gap: 2em;
-}
-
-.uname,
-.pass {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5em;
-}
-
-.bottom {
-  margin: 1em;
-  display: flex;
-  flex-direction: column;
-  gap: 1em;
-}
-#error {
-  margin: 0.75em;
-  font-size: 0.9em;
-}
-.showPasswordDiv {
-  margin-top: 0.5px;
-  display: flex;
-  align-items: center;
-  background-color: white;
-  border: 0px solid;
-  height: 10px;
-  font-size: 15px;
-}
-
-input[type="checkbox"] {
-  height: 25px;
-  border: 0px;
-  box-shadow: none;
-}
-
-label {
-  margin-left: 10px;
-  font-family: "Poppins", sans-serif;
-}
-
-#showpass {
-  padding-right: 5px;
-}
-
-input {
-  height: 35px;
-  border: 2px solid gray;
-  border-radius: 15px;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  font-size: 20px;
-  font-family: "Montserrat", sans-serif;
-}
-
-input[id="username"] {
-  background-image: url(./Images/user-solid.svg);
-  background-size: 15px;
-  background-position: 11px 7px;
-  background-repeat: no-repeat;
-  padding-left: 40px;
-}
-input[id="username1"] {
-  background-image: url(./Images/user-solid.svg);
-  background-size: 15px;
-  background-position: 11px 7px;
-  background-repeat: no-repeat;
-  padding-left: 40px;
-  font-size: 16px;
-}
-
-input[id="username2"] {
-  background-image: url(./Images/user-solid.svg);
-  background-size: 15px;
-  background-position: 11px 7px;
-  background-repeat: no-repeat;
-  padding-left: 40px;
-}
-
-input[id="password"] {
-  background-image: url(./Images/key-solid.svg);
-  background-size: 15px;
-  background-position: 10px 9px;
-  background-repeat: no-repeat;
-  padding-left: 40px;
-  font-size: 16px;
-}
-input[id="password2"] {
-  background-image: url(./Images/key-solid.svg);
-  background-size: 15px;
-  background-position: 10px 9px;
-  background-repeat: no-repeat;
-  padding-left: 40px;
-  font-size: 16px;
-}
-button {
-  height: 35px;
-  border-color: #191c3b;
-  color: white;
-  background-color: #191c3b;
-  font-size: 1.3rem;
-}
-
-input[type="submit"],
-input[type="reset"] {
-  height: 38px;
-  border-color: #191c3b;
-  color: white;
-  background-color: #191c3b;
-}
-
-input[type="submit"]:hover,
-input[type="reset"]:hover {
-  transform: translateY(-2px);
-}
-
-/* End of Form Formatting */
-
 /*Page Pre Loader Styles*/
 
 #loader {
@@ -341,7 +119,6 @@ input[type="reset"]:hover {
 }
 
 /* End of Page Loader Formating */
-
 /* menu styles */
 .main-body {
   background-color: var(--main-bg-color);
@@ -378,7 +155,7 @@ input[type="reset"]:hover {
 }
 
 .logo-name img {
-  width: 45px;
+  width: 50px;
   object-fit: cover;
 }
 
@@ -390,10 +167,10 @@ nav {
   display: flex;
   flex-direction: column;
   margin-top: 2rem;
-  height: calc(100% - 260px);
+  height: calc(100% - 250px);
   justify-content: space-between;
   font-size: 1.6rem;
-  font-weight: 400;
+  font-weight: 100;
   padding-left: 0.8rem;
 }
 
@@ -430,8 +207,6 @@ nav {
   gap: 1em;
   margin-top: 1.5rem;
   margin-left: 1rem;
-  font-weight: 400;
-  font-size: 1.5rem;
 }
 
 .ProfileBox {
@@ -443,10 +218,6 @@ nav {
   width: 65px;
   border-radius: 10%;
   background-color: var(--link-hover-color);
-}
-
-#displayName {
-  color: crimson;
 }
 /*======= =======*/
 
@@ -461,6 +232,7 @@ nav {
 .menu-items .mode-toggle {
   height: 50px;
   min-width: 50px;
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -492,12 +264,8 @@ body.dark .top-items a:hover {
   background-color: #ccc;
 }
 
-.logout-mode a:hover {
+body.dark .logout-mode a:hover {
   color: crimson;
-}
-
-body.dark .ProfileBox {
-  color: black;
 }
 
 /*=== dark mode/ light mode END ===*/
