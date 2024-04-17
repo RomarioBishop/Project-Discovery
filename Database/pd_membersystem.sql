@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 27, 2024 at 03:20 AM
+-- Generation Time: Apr 15, 2024 at 05:30 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -42,9 +42,17 @@ CREATE TABLE `community` (
 CREATE TABLE `credentials` (
   `cred_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `email` varchar(255) NOT NULL,
+  `email` varchar(255) DEFAULT NULL,
   `passwords` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `credentials`
+--
+
+INSERT INTO `credentials` (`cred_id`, `user_id`, `email`, `passwords`) VALUES
+(5, 12, 'new@gmail.com', '$2y$12$IoGGxWgeKqnVr3uj2lp5W.mbs68hdsW8o.VYg4YHN1Q8BoJVqrKMC'),
+(9, 16, 'admin@gmail.com', '$2y$12$.lG7XszdRkflrNiOX8a/GuHQFzBYEAnwmwcSImv5w7DCPOFfdcFSi');
 
 -- --------------------------------------------------------
 
@@ -56,9 +64,19 @@ CREATE TABLE `members` (
   `user_id` int(11) NOT NULL,
   `first_name` varchar(40) NOT NULL,
   `last_name` varchar(40) NOT NULL,
+  `roles` varchar(7) NOT NULL,
   `date_of_birth` date DEFAULT NULL,
-  `gender` varchar(6) DEFAULT NULL
+  `gender` varchar(6) DEFAULT NULL,
+  `created_at` datetime NOT NULL DEFAULT curtime()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `members`
+--
+
+INSERT INTO `members` (`user_id`, `first_name`, `last_name`, `roles`, `date_of_birth`, `gender`, `created_at`) VALUES
+(12, 'jack', 'chan', 'Member', NULL, NULL, '2024-04-03 01:53:47'),
+(16, 'Romario', 'herman', 'Admin', NULL, NULL, '2024-04-14 23:22:20');
 
 -- --------------------------------------------------------
 
@@ -118,13 +136,13 @@ ALTER TABLE `community`
 -- AUTO_INCREMENT for table `credentials`
 --
 ALTER TABLE `credentials`
-  MODIFY `cred_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `cred_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `members`
 --
 ALTER TABLE `members`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `payments`
