@@ -502,3 +502,88 @@ body.dark .ProfileBox {
 }
 
 /*=== dark mode/ light mode END ===*/
+
+
+/*=== Settings START ===*/
+
+.settings-heading {
+  margin-top: 50px;
+  margin-left: 15px;
+  font-weight: 600;
+  font-family: "Montserrat", sans-serif;
+  font-size: 40px;
+  color: var(--sidebar-bg-color);
+  border-bottom: 2px solid;
+  padding-bottom: 10px;
+}
+
+.sub-heading {
+  font-size: 18px;
+  font-weight: 300;
+}
+
+input[id="member-name"] {
+  all:revert;
+  background-color: var(--main-bg-color);
+  border: 0px var(--main-bg-color);
+  padding: 0px;
+  margin-left: 10px;
+}
+
+.settings-formCrt {
+  margin-top: 50px;
+  margin-left: 20px;
+}
+
+.member-name, .member-email {
+  font-weight: 300;
+  font-size: 1.25rem;
+  border-bottom: 2px solid #264653;
+  padding-bottom: 2px;
+}
+.member-name-title, .member-email-title, .member-password-title {
+  font-weight: 500;
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.member-name-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.uneditable {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem
+}
+
+.underline {
+  border-bottom: 2px solid #264653;
+  padding-bottom: 2px;
+}
+
+select[id='gender'] {
+  background-color: var(--main-bg-color);
+  border: 0px;
+  padding-right: 70%;
+  font-size: 18px;
+}
+
+.settings-heading-password {
+  margin-top: 1rem;
+  font-weight: 600;
+  font-family: "Montserrat", sans-serif;
+  font-size: 25px;
+  color: var(--sidebar-bg-color);
+  border-bottom: 2px solid;
+  padding-bottom: 10px;
+
+}
+
+input[id="password3"] {
+  all:revert;
+  background-color: var(--main-bg-color);
+  border: 0px var(--main-bg-color);
+  font-size: 20px;
+}
