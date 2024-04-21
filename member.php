@@ -107,7 +107,7 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['userRole'] !== "Member") {
                     <ul class="top-items">
                         <li><a href="dashboard.php">
                                 <i class="fa-sharp fa-solid fa-gauge"></i>
-                                <span class="link-name">Dashboard</span>
+                                <span class="link-name active-page">Dashboard</span>
                             </a>
                         </li>
                         <li><a href="subscriptions.php">

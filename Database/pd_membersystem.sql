@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 15, 2024 at 05:30 AM
+-- Generation Time: Apr 21, 2024 at 09:08 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -51,8 +51,8 @@ CREATE TABLE `credentials` (
 --
 
 INSERT INTO `credentials` (`cred_id`, `user_id`, `email`, `passwords`) VALUES
-(5, 12, 'new@gmail.com', '$2y$12$IoGGxWgeKqnVr3uj2lp5W.mbs68hdsW8o.VYg4YHN1Q8BoJVqrKMC'),
-(9, 16, 'admin@gmail.com', '$2y$12$.lG7XszdRkflrNiOX8a/GuHQFzBYEAnwmwcSImv5w7DCPOFfdcFSi');
+(9, 16, 'admin@gmail.com', '$2y$12$.lG7XszdRkflrNiOX8a/GuHQFzBYEAnwmwcSImv5w7DCPOFfdcFSi'),
+(10, 17, 'member@gmail.com', '$2y$12$3capqUtxkz1D30k4chqtre7OigA5bHAsnEUwkkD2YWURqCxnbeyn2');
 
 -- --------------------------------------------------------
 
@@ -75,8 +75,8 @@ CREATE TABLE `members` (
 --
 
 INSERT INTO `members` (`user_id`, `first_name`, `last_name`, `roles`, `date_of_birth`, `gender`, `created_at`) VALUES
-(12, 'jack', 'chan', 'Member', NULL, NULL, '2024-04-03 01:53:47'),
-(16, 'Romario', 'herman', 'Admin', NULL, NULL, '2024-04-14 23:22:20');
+(16, 'Romario', 'herman', 'Admin', NULL, NULL, '2024-04-14 23:22:20'),
+(17, 'Romano', 'Guildan', 'Member', NULL, ' Male', '2024-04-21 00:58:06');
 
 -- --------------------------------------------------------
 
@@ -88,7 +88,8 @@ CREATE TABLE `payments` (
   `payment_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `subcription_date` date DEFAULT NULL,
-  `subcription_status` varchar(10) NOT NULL
+  `subcription_status` varchar(10) NOT NULL,
+  `amount_paid` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -136,13 +137,13 @@ ALTER TABLE `community`
 -- AUTO_INCREMENT for table `credentials`
 --
 ALTER TABLE `credentials`
-  MODIFY `cred_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `cred_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `members`
 --
 ALTER TABLE `members`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `payments`

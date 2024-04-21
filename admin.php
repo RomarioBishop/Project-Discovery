@@ -81,7 +81,7 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['userRole'] !== "Admin") {
     ?>
 
 
-    <div class="containter">
+    <div class="container">
 
         <aside class="sidebar">
             <nav>
@@ -105,24 +105,29 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['userRole'] !== "Admin") {
                 </div>
                 <div class="menu-items">
                     <ul class="top-items">
-                        <li><a href="dashboard.php">
-                                <i class="fa-sharp fa-solid fa-gauge"></i>
-                                <span class="link-name">Dashboard</span>
+                        <li><a href="enter_payments.php">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                                <span class="link-name active-page">Enter Payments</span>
                             </a>
                         </li>
-                        <li><a href="subscriptons.php">
-                                <i class="fa-solid fa-circle-dollar-to-slot"></i>
-                                <span class="link-name">Subscriptions</span>
+                        <li><a href="enter_subscriptons.php">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                                <span class="link-name">Enter Hours</span>
                             </a>
                         </li>
-                        <li><a href="community.php">
-                                <i class="fa-solid fa-clock"></i>
-                                <span class="link-name">Community Service</span>
-                            </a>
-                        </li>
-                        <li><a href="settings.php">
+                        <li><a href="changes_logs.php">
                                 <i class="fa-solid fa-gear"></i>
-                                <span class="link-name">Settings</span>
+                                <span class="link-name">Changes Logs</span>
+                            </a>
+                        </li>
+                        <li><a href="subscriptions_logs.php">
+                                <i class="fa-solid fa-gear"></i>
+                                <span class="link-name">Subscriptions Logs</span>
+                            </a>
+                        </li>
+                        <li><a href="service_logs.php">
+                                <i class="fa-solid fa-gear"></i>
+                                <span class="link-name">Service Logs</span>
                             </a>
                         </li>
                     </ul>

@@ -9,6 +9,7 @@ $conn = mysqli_connect("localhost", "root", "", "pd_membersystem");
 
 
 
+
 if (!isset($_SESSION['loggedIn']) || $_SESSION['userRole'] !== "Admin") {
     $_SESSION['error'] = ".";
     echo "<script> window.location.href= 'index.php'; </script>";
@@ -80,7 +81,7 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['userRole'] !== "Admin") {
     ?>
 
 
-    <div class="containter">
+    <div class="container">
 
         <aside class="sidebar">
             <nav>
@@ -106,7 +107,7 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['userRole'] !== "Admin") {
                     <ul class="top-items">
                         <li><a href="enter_payments.php">
                                 <i class="fa-solid fa-pen-to-square"></i>
-                                <span class="link-name">Enter Payments</span>
+                                <span class="link-name active-page">Enter Payments</span>
                             </a>
                         </li>
                         <li><a href="enter_subscriptons.php">
@@ -160,16 +161,20 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['userRole'] !== "Admin") {
                 });
             </script>
         </aside>
+        <main class="page-main">
 
-
-        <main class="main">
-
-            <div class="heading">
-
+            <div class="page-heading">
+                <p>Enter Member Payments</p>
+                <p class="sub-heading">Update member subscription status</p>
             </div>
 
-            <div class="content">
 
+            <div class="page-formCrt">
+                <form action="enter-payments" method="post" onsubmit="">
+
+                    <!-- START HERE DARSH dont change anything in this section, just add ur stuff-->
+
+                </form>
             </div>
 
         </main>

@@ -81,7 +81,7 @@ if (!isset($_SESSION['loggedIn'])) {
     ?>
 
 
-    <div class="containter">
+    <div class="container">
 
         <aside class="sidebar">
             <nav>

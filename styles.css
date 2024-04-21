@@ -75,6 +75,11 @@ body.dark {
 }
 /* Header of Form Text */
 
+.active-page {
+  font-weight: bold;
+  color: orangered !important;
+}
+
 #welcome {
   font-family: "Poppins", sans-serif;
   font-size: 25px;
@@ -508,7 +513,7 @@ body.dark .ProfileBox {
 
 /*=== Settings START ===*/
 
-.settings-heading {
+.page-heading {
   margin-top: 3rem;
   font-weight: 600;
   font-family: "Montserrat", sans-serif;
@@ -532,10 +537,10 @@ input[id="member-name"] {
   padding: 0px;
   margin-left: 10px;
 }
-.settings-main {
+.page-main {
   width: 100%;
 }
-.settings-formCrt {
+.page-formCrt {
   max-width: 800px;
   margin-top: 50px;
   margin-left: 1rem;

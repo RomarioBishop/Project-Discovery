@@ -149,7 +149,7 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['userRole'] !== "Member") {
                         </li>
                         <li><a href="settings.php">
                                 <i class="fa-solid fa-gear"></i>
-                                <span class="link-name">Settings</span>
+                                <span class="link-name active-page">Settings</span>
                             </a>
                         </li>
                     </ul>
@@ -183,15 +183,15 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['userRole'] !== "Member") {
                 });
             </script>
         </aside>
-        <main class="settings-main">
+        <main class="page-main">
 
-            <div class="settings-heading">
+            <div class="page-heading">
                 <p>Profile Settings</p>
                 <p class="sub-heading">Manage your profile settings</p>
             </div>
 
 
-            <div class="settings-formCrt">
+            <div class="page-formCrt">
                 <form action="settings.php" method="post" onsubmit="return validateForm()">
                     <div class="uneditable">
 

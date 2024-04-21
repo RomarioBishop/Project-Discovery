@@ -112,7 +112,7 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['userRole'] !== "Member") {
                         </li>
                         <li><a href="subscriptions.php">
                                 <i class="fa-solid fa-circle-dollar-to-slot"></i>
-                                <span class="link-name">Subscriptions</span>
+                                <span class="link-name active-page">Subscriptions</span>
                             </a>
                         </li>
                         <li><a href="community.php">
