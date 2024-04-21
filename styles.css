@@ -12,6 +12,7 @@
   --secondary-color: #567de8;
   --toggle-color: #707070;
   --panel-color: white;
+  --text-black-color: rgb(32, 35, 48);
 
   /*=== Transition ===*/
   --trans-05: all 0.5s ease;
@@ -352,10 +353,12 @@ input[type="reset"]:hover {
 .container {
   display: flex;
   height: 100vh;
-  gap: 1rem;
+  gap: 3rem;
+  width: 100%;
 }
 
 .sidebar {
+  width: 100%;
   max-width: 360px;
   height: 100vh;
   background-color: var(--sidebar-bg-color);
@@ -503,45 +506,53 @@ body.dark .ProfileBox {
 
 /*=== dark mode/ light mode END ===*/
 
-
 /*=== Settings START ===*/
 
 .settings-heading {
-  margin-top: 50px;
-  margin-left: 15px;
+  margin-top: 3rem;
   font-weight: 600;
   font-family: "Montserrat", sans-serif;
   font-size: 40px;
-  color: var(--sidebar-bg-color);
+  color: var(--text-black-color);
   border-bottom: 2px solid;
   padding-bottom: 10px;
 }
 
 .sub-heading {
-  font-size: 18px;
+  font-size: 1.3rem;
   font-weight: 300;
 }
-
+.settings-content {
+  margin: 0 auto;
+}
 input[id="member-name"] {
-  all:revert;
+  all: revert;
   background-color: var(--main-bg-color);
   border: 0px var(--main-bg-color);
   padding: 0px;
   margin-left: 10px;
 }
-
+.settings-main {
+  width: 100%;
+}
 .settings-formCrt {
+  max-width: 800px;
   margin-top: 50px;
-  margin-left: 20px;
+  margin-left: 1rem;
+  margin: 0 auto;
+  padding: 10px;
 }
 
-.member-name, .member-email {
+.member-name,
+.member-email {
   font-weight: 300;
   font-size: 1.25rem;
   border-bottom: 2px solid #264653;
   padding-bottom: 2px;
 }
-.member-name-title, .member-email-title, .member-password-title {
+.member-name-title,
+.member-email-title,
+.member-password-title {
   font-weight: 500;
   font-size: 1.5rem;
   margin-bottom: 10px;
@@ -555,7 +566,7 @@ input[id="member-name"] {
 .uneditable {
   display: flex;
   flex-direction: column;
-  gap: 2rem
+  gap: 1.5rem;
 }
 
 .underline {
@@ -563,7 +574,11 @@ input[id="member-name"] {
   padding-bottom: 2px;
 }
 
-select[id='gender'] {
+.settings-formCrt-top {
+  margin-top: 1rem;
+}
+
+select[id="gender"] {
   background-color: var(--main-bg-color);
   border: 0px;
   padding-right: 70%;
@@ -575,15 +590,43 @@ select[id='gender'] {
   font-weight: 600;
   font-family: "Montserrat", sans-serif;
   font-size: 25px;
-  color: var(--sidebar-bg-color);
-  border-bottom: 2px solid;
+  color: var(--text-black-color);
   padding-bottom: 10px;
-
 }
 
 input[id="password3"] {
-  all:revert;
+  all: revert;
   background-color: var(--main-bg-color);
   border: 0px var(--main-bg-color);
   font-size: 20px;
+}
+
+input[id="verify_password3"] {
+  all: revert;
+  background-color: var(--main-bg-color);
+  border: 0px var(--main-bg-color);
+  font-size: 20px;
+}
+
+/*=== subscriptions page styling start ===*/
+.subscriptions-main {
+  display: flex;
+  flex-direction: column;
+}
+
+.subscriptions-heading {
+  font-size: 2rem;
+  color: var(--text-black-color);
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  border: 1px solid;
+}
+
+.subscription-status {
+  display: flex;
+  flex-direction: column;
+}
+
+.sub1-label {
+  color: var(--text-black-color);
 }

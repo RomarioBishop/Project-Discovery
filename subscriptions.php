@@ -7,6 +7,9 @@ session_start();
 <?php
 $conn = mysqli_connect("localhost", "root", "", "pd_membersystem");
 
+
+
+
 if (!isset($_SESSION['loggedIn']) || $_SESSION['userRole'] !== "Member") {
     $_SESSION['error'] = ".";
     echo "<script> window.location.href= 'index.php'; </script>";
@@ -77,37 +80,7 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['userRole'] !== "Member") {
     endif;
     ?>
 
-    <?php
-    // Check if the form is submitted
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // Retrieve form data
-        $newPassword = $_POST['newPwd'];
-        $gender = $_POST['gender'];
 
-        $options = [
-            'cost' => 12
-        ];
-
-        /* Encrypts the user password*/
-        $password_hashed = password_hash($newPassword, PASSWORD_BCRYPT, $options);
-
-        $conn = mysqli_connect("localhost", "root", "", "pd_membersystem");
-
-        // Check connection
-        if (!$conn) {
-            die("Connection failed: " . mysqli_connect_error());
-        }
-
-        $user_id = $_SESSION['user_id'];
-
-        //updates user password
-        $sql1 = "UPDATE credentials SET passwords = '$password_hashed' WHERE user_id = $user_id";
-        mysqli_query($conn, $sql1);
-        //updates user gender
-        $sql2 = "UPDATE members SET gender = '$gender' WHERE user_id = $user_id";
-        mysqli_query($conn, $sql2);
-    }
-    ?>
     <div class="container">
 
         <aside class="sidebar">
@@ -183,86 +156,32 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['userRole'] !== "Member") {
                 });
             </script>
         </aside>
-        <main class="settings-main">
+        <main class="subscriptions-main">
 
-            <div class="settings-heading">
-                <p>Profile Settings</p>
-                <p class="sub-heading">Manage your profile settings</p>
+            <div class="subscriptions-heading">
+                <h1>Subscriptions History</h1>
+                <p class="sub-heading"> Manage Your Subscription Status</p>
+
             </div>
 
-
-            <div class="settings-formCrt">
-                <form action="settings.php" method="post" onsubmit="return validateForm()">
-                    <div class="uneditable">
-
-                        <div class="settings-formCrt-top">
-                            <p class="member-name-title">NAME</p>
-                            <?php
-                            echo "<p class='member-email'> {$_SESSION['firstName']}  {$_SESSION['lastName']} </p>";
-                            ?>
-                            <!--REPLACE MY NAME WITH DATABASE NAME-->
-                        </div>
-
-                        <div>
-                            <p class="member-email-title">EMAIL</p>
-                            <?php
-                            echo "<p class='member-email'> {$_SESSION['email']} </p>";
-                            ?>
-                        </div>
-
-                        <div>
-                            <p class="member-email-title">GENDER</p>
-
-                            <select name="gender" id="gender" style="padding-right: 10px;">
-                                <?php
-                                $currentGender = $_SESSION['gender'];
-                                echo "<option value='$currentGender'> {$_SESSION['gender']} </option>";
-                                ?>
-                                <option value=" Male">Male</option>
-                                <option value="Female">Female</option>
-                            </select>
-
-                            <p class="underline"></p>
-                        </div>
-
-                        <div class="settings-heading-password">
-                            <p>Update Password Here</p>
-                            <p class="sub-heading">Elevate Your Account Protection</p>
-                        </div>
-
-                        <div>
-                            <p class="member-password-title">NEW PASSWORD</p>
-                            <input type="password" id="password3" name="newPwd" size="25" placeholder="Enter your new password here">
-                            <p class="underline"></p>
-                        </div>
-
-                        <div>
-                            <p class="member-password-title">VERIFY PASSWORD</p>
-                            <input type="password" id="verify_password3" name="verifyPwd" size="25" maxlength="16" placeholder="Enter your password again">
-                            <p class="underline"></p>
-                        </div>
-
-                        <input type="submit" value="Save Changes">
-
-                        <script defer>
-                            function validateForm() {
-                                let newPassword = document.getElementById("password3").value;
-                                let verifyPassword = document.getElementById("verify_password3").value;
-
-                                if (newPassword !== verifyPassword) {
-                                    alert("Passwords do not match!");
-                                    return false; // Prevent form submission
-                                }
-                                if (verifyPassword === "" && newPassword === "") {
-                                    alert("Passwords can not be empty!");
-                                    return false; // Prevent form submission
-                                }
-                                return true; // Allow form submission
-                            }
-                        </script>
-
+            <div class="subscriptions-content">
+                <div class="subscription-status">
+                    <div class="sub1-label">
+                        <h2>Status</h2>
                     </div>
-                </form>
+                    <div class="status-info">
+                        <div class="status">
+
+                        </div>
+                        <div class="time-remainding">
+
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+
+                </div>
             </div>
 
         </main>

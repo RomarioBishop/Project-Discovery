@@ -81,7 +81,7 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['userRole'] !== "Member") {
     ?>
 
 
-    <div class="containter">
+    <div class="container">
 
         <aside class="sidebar">
             <nav>
@@ -110,7 +110,7 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['userRole'] !== "Member") {
                                 <span class="link-name">Dashboard</span>
                             </a>
                         </li>
-                        <li><a href="subscriptons.php">
+                        <li><a href="subscriptions.php">
                                 <i class="fa-solid fa-circle-dollar-to-slot"></i>
                                 <span class="link-name">Subscriptions</span>
                             </a>
