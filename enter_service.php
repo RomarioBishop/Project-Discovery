@@ -164,13 +164,13 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['userRole'] !== "Admin") {
         <main class="page-main">
 
             <div class="page-heading">
-                <p>Enter Member Payments</p>
-                <p class="sub-heading">Update member subscription status</p>
+                <p>Enter Member Community Service Hours</p>
+                <p class="sub-heading">Update members total serice hours</p>
             </div>
 
 
             <div class="page-formCrt">
-                <form action="enter-payments" method="post" onsubmit="">
+                <form action="enter-service" method="post" onsubmit="">
 
                     <!-- START HERE DARSH dont change anything in this section, just add ur stuff-->
 
