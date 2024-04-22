@@ -80,6 +80,38 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['userRole'] !== "Member") {
     endif;
     ?>
 
+    <?php
+    // Check if the form is submitted
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // Retrieve form data
+        $newPassword = $_POST['newPwd'];
+        $gender = $_POST['gender'];
+
+        $options = [
+            'cost' => 12
+        ];
+
+        /* Encrypts the user password*/
+        $password_hashed = password_hash($newPassword, PASSWORD_BCRYPT, $options);
+
+        $conn = mysqli_connect("localhost", "root", "", "pd_membersystem");
+
+        // Check connection
+        if (!$conn) {
+            die("Connection failed: " . mysqli_connect_error());
+        }
+
+        $user_id = $_SESSION['user_id'];
+
+        //updates user password
+        $sql1 = "UPDATE credentials SET passwords = '$password_hashed' WHERE user_id = $user_id";
+        mysqli_query($conn, $sql1);
+        //updates user gender
+        $sql2 = "UPDATE members SET gender = '$gender' WHERE user_id = $user_id";
+        mysqli_query($conn, $sql2);
+    }
+    ?>
+
 
     <div class="container">
 

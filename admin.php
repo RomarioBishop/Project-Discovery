@@ -110,7 +110,7 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['userRole'] !== "Admin") {
                                 <span class="link-name active-page">Enter Payments</span>
                             </a>
                         </li>
-                        <li><a href="enter_subscriptons.php">
+                        <li><a href="enter_service.php">
                                 <i class="fa-solid fa-pen-to-square"></i>
                                 <span class="link-name">Enter Hours</span>
                             </a>
@@ -161,14 +161,90 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['userRole'] !== "Admin") {
                 });
             </script>
         </aside>
-        <main class="main">
+        <main class="page-main">
 
-            <div class="heading">
-
+            <div class="page-heading">
+                <p>Enter Member Payments</p>
+                <p class="sub-heading">Update member subscription status</p>
             </div>
 
-            <div class="content">
 
+            <div class="page-formCrt">
+                <form id="payment-form" action="enter-payments.php" method="post" onsubmit="event.preventDefault(); showPaymentConfirmation();">
+                    <div class="payment-page-settings-formCrt-top">
+                        <h2 class="payment-page-heading">Payment Form</h2>
+                    </div>
+                    <div class="payment-page-uneditable">
+                        <div class="payment-page-member-name-form">
+                            <label for="payment-page-first-name" class="payment-page-name-title">First Name</label>
+                            <input type="text" id="payment-page-first-name" name="first_name" required class="payment-page-input-text" placeholder="Enter Member's First Name Correctly">
+                        </div>
+                        <div class="payment-page-member-name-form">
+                            <label for="payment-page-last-name" class="payment-page-name-title">Last Name</label>
+                            <input type="text" id="payment-page-last-name" name="last_name" required class="payment-page-input-text" placeholder="Enter Member's Last Name Correctly" style="margin-right: 50px;">
+                        </div>
+                        <div class="payment-page-member-name-form">
+                            <label for="payment-page-payment-amount" class="payment-page-name-title">Select Payment Amount</label>
+                            <select name="payment_amount" id="payment-page-payment-amount" required class="payment-page-select" style="padding-right: 10px;">
+                                <option value="" disabled selected>Select an amount</option>
+                                <?php
+                                // Generate dropdown options for payment amounts in increments of $5 up to $100
+                                for ($i = 5; $i <= 100; $i += 5) {
+                                    echo "<option value='$i'>$ $i</option>";
+                                }
+                                ?>
+                            </select>
+                        </div>
+                        <div class="payment-page-member-name-form">
+                            <label for="payment-page-payment-date" class="payment-page-name-title">Select Payment Date</label>
+                            <input type="month" id="payment-page-payment-date" name="payment_date" required class="payment-page-input-month">
+                        </div>
+                        <div class="payment-page-bottom">
+                            <input type="submit" value="Enter" class="payment-page-input-submit">
+                            <input type="button" value="Go Back" onclick="history.back()" class="payment-page-input-button">
+                        </div>
+                    </div>
+                    <div id="confirmation-box" class="confirmation-box">
+                        <div class="confirmation-content">
+                            <h3>Confirm Payment</h3>
+                            <p>First Name: <span id="confirm-first-name"></span></p>
+                            <p>Last Name: <span id="confirm-last-name"></span></p>
+                            <p>Payment Amount: <span id="confirm-amount"></span></p>
+                            <p>Payment Date: <span id="confirm-date"></span></p>
+                            <br />
+                            <div class="confirmation-buttons">
+                                <button class="turn-red" type="button" onclick="submitPayment()">Confirm</button>
+                                <button type="button" onclick="cancelPayment()">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </form>
+                <script defer>
+                    function showPaymentConfirmation() {
+                        let firstName = document.getElementById("payment-page-first-name").value;
+                        let lastName = document.getElementById("payment-page-last-name").value;
+                        let amount = document.getElementById("payment-page-payment-amount").value;
+                        let date = document.getElementById("payment-page-payment-date").value;
+
+                        document.getElementById("confirm-first-name").textContent = firstName;
+                        document.getElementById("confirm-last-name").textContent = lastName;
+                        document.getElementById("confirm-amount").textContent = amount;
+                        document.getElementById("confirm-date").textContent = date;
+
+                        document.getElementById("confirmation-box").style.display = "block";
+                    }
+
+                    function submitPayment() {
+                        document.getElementById("payment-form").submit();
+                    }
+
+                    function cancelPayment() {
+                        document.getElementById("confirmation-box").style.display = "none";
+                    }
+                </script>
             </div>
 
         </main>

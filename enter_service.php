@@ -107,12 +107,12 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['userRole'] !== "Admin") {
                     <ul class="top-items">
                         <li><a href="enter_payments.php">
                                 <i class="fa-solid fa-pen-to-square"></i>
-                                <span class="link-name active-page">Enter Payments</span>
+                                <span class="link-name">Enter Payments</span>
                             </a>
                         </li>
                         <li><a href="enter_service.php">
                                 <i class="fa-solid fa-pen-to-square"></i>
-                                <span class="link-name">Enter Hours</span>
+                                <span class="link-name active-page">Enter Hours</span>
                             </a>
                         </li>
                         <li><a href="changes_logs.php">
@@ -164,17 +164,77 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['userRole'] !== "Admin") {
         <main class="page-main">
 
             <div class="page-heading">
-                <p>Enter Member Community Service Hours</p>
-                <p class="sub-heading">Update members total serice hours</p>
+                <p>Enter Member Service Hours</p>
+                <p class="sub-heading">Update members total community service hours</p>
             </div>
 
 
             <div class="page-formCrt">
-                <form action="enter-service" method="post" onsubmit="">
+                <form id="service-entry-form" action="enter_service.php" method="post" onsubmit="event.preventDefault(); showConfirmation();">
+                    <div class="community-service-page-settings-formCrt-top">
+                        <h2 class="community-service-page-heading">Community Service Hours Entry</h2>
+                    </div>
+                    <div class="community-service-page-uneditable">
+                        <div class="community-service-page-member-name-form">
+                            <label for="community-service-page-first-name" class="community-service-page-name-title">First Name</label>
+                            <input type="text" id="community-service-page-first-name" name="first_name" required class="community-service-page-input-text" placeholder="Enter Member's First Name Correctly">
+                        </div>
+                        <div class="community-service-page-member-name-form">
+                            <label for="community-service-page-last-name" class="community-service-page-name-title">Last Name</label>
+                            <input type="text" id="community-service-page-last-name" name="last_name" required class="community-service-page-input-text" placeholder="Enter Member's Last Name Correctly">
+                        </div>
+                        <div class="community-service-page-member-name-form">
+                            <label for="community-service-page-hours" class="community-service-page-name-title">Hours Worked</label>
+                            <input type="number" id="community-service-page-hours" name="hours_worked" required class="community-service-page-input-time" min="1" step="1" title="Round to the nearest hour">
+                        </div>
+                        <div class="community-service-page-member-name-form no-highlight">
+                            <label for="community-service-page-submitted-date" class="community-service-page-name-title">Date Submitted</label>
+                            <input type="date" id="community-service-page-submitted-date" name="submitted_date" required class="community-service-page-input-datetime no-highlight">
+                        </div>
+                        <div class="community-service-page-bottom">
+                            <input type="submit" value="Submit" class="community-service-page-input-submit">
 
-                    <!-- START HERE DARSH dont change anything in this section, just add ur stuff-->
-
+                            <input type="button" value="Cancel" onclick="history.back()" class="community-service-page-input-button">
+                        </div>
+                        <div id="confirmation-box" class="confirmation-box">
+                            <div class="confirmation-content">
+                                <h3>Confirm Submission</h3>
+                                <p>First Name: <span id="confirm-first-name"></span> </p>
+                                <p>Last Name: <span id="confirm-last-name"></span></p>
+                                <p>Hours Worked: <span id="confirm-hours"></span></p>
+                                <p>Date Submitted: <span id="confirm-date"></span></p>
+                                <br>
+                                <div class="confirmation-buttons">
+                                    <button class="turn-red" type="button" onclick="submitForm()">Confirm</button>
+                                    <button type="button" onclick="cancelConfirmation()">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </form>
+                <script defer>
+                    function showConfirmation() {
+                        let firstName = document.getElementById("community-service-page-first-name").value;
+                        let lastName = document.getElementById("community-service-page-last-name").value;
+                        let hoursWorked = document.getElementById("community-service-page-hours").value;
+                        let dateSubmitted = document.getElementById("community-service-page-submitted-date").value;
+
+                        document.getElementById("confirm-first-name").textContent = firstName;
+                        document.getElementById("confirm-last-name").textContent = lastName;
+                        document.getElementById("confirm-hours").textContent = hoursWorked;
+                        document.getElementById("confirm-date").textContent = dateSubmitted;
+
+                        document.getElementById("confirmation-box").style.display = "block";
+                    }
+
+                    function submitForm() {
+                        document.getElementById("service-entry-form").submit();
+                    }
+
+                    function cancelConfirmation() {
+                        document.getElementById("confirmation-box").style.display = "none";
+                    }
+                </script>
             </div>
 
         </main>
