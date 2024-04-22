@@ -144,7 +144,8 @@ session_start();
 
                         <div class="bottom">
 
-                            <button type="button" onclick="validateStep1()"> Next </button>
+                            <button type="button" onclick="validateStep1()" class="set-pointer"> Next </button>
+                            <input type="button" value="Go Back to Login" onclick="history.back()" class="signup-page-input-button">
                         </div>
 
                     </div>
@@ -152,12 +153,12 @@ session_start();
                         <div class="items">
                             <div class="uname">
                                 <label for="username">Email</label>
-                                <input type="text" id="username" name="email" required autocomplete="off">
+                                <input type="email" id="username" name="email" required autocomplete="off">
                             </div>
 
                             <div class="pass">
-                                <label for="password">Password</label>
-                                <input type="password" id="password" name="password">
+                                <label for="password">Password - maximum 16 characters</label>
+                                <input type="password" id="password" name="password" maxlength="16" required>
 
                                 <div class="showPasswordDiv">
                                     <label id="showpass" for="showPass">Show Password</label>
@@ -168,7 +169,7 @@ session_start();
 
                             <div class="pass">
                                 <label for="password">Re-Type password</label>
-                                <input type="password" id="password2" name="password2">
+                                <input type="password" id="password2" name="password2" maxlength="16" required>
 
                                 <div class="showPasswordDiv">
                                     <label id="showpass" for="showPass">Show Password</label>

@@ -67,7 +67,7 @@ session_start();
                     <div class="items">
                         <div class="uname">
                             <label for="username">Email</label>
-                            <input type="text" id="username" name="email" required autocomplete="off">
+                            <input type="email" id="username" name="email" required autocomplete="off">
                         </div>
                         <div class="pass">
                             <label for="password">Password</label>

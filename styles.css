@@ -73,6 +73,22 @@ body.dark {
   align-items: center;
   background-color: rgb(255, 99, 71);
 }
+
+.signup-page-input-submit,
+.signup-page-input-button {
+  width: 100%;
+  height: 40px;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--secondary-color);
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 0.5rem;
+}
+.set-pointer {
+  cursor: pointer;
+}
 /* Header of Form Text */
 
 .active-page {
