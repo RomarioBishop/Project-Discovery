@@ -81,8 +81,8 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['userRole'] !== "Member") {
     // Check if the form is submitted
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Retrieve form data
-        $newPassword = $_POST['newPwd'];
-        $gender = $_POST['gender'];
+        $newPassword = trim($_POST['newPwd']);
+        $gender = trim($_POST['gender']);
 
         $options = [
             'cost' => 12

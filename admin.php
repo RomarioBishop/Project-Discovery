@@ -80,6 +80,56 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['userRole'] !== "Admin") {
     endif;
     ?>
 
+    <?php
+    // Check if the form is submitted
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // Retrieve form data
+        $firstName = trim($_POST['first_name']);
+        $lastName = trim($_POST['last_name']);
+        $amount_paid = trim($_POST['payment_amount']);
+        $paid_up_to = trim($_POST['payment_date']);
+
+        $conn = mysqli_connect("localhost", "root", "", "pd_membersystem");
+
+        // Check connection
+        if (!$conn) {
+            die("Connection failed: " . mysqli_connect_error());
+        }
+
+        //updates user password
+        $members_result = mysqli_query($conn, "SELECT * FROM members WHERE first_name ='$firstName' && last_name ='$lastName'");
+        $members_row = $members_result->fetch_assoc();
+
+        if (mysqli_num_rows($members_result) != 0) {
+            if (mysqli_num_rows($members_result) == 1) {
+                $user_id = $members_row['user_id'];
+                //update payments table
+                // Format the date in MySQL format (YYYY-MM-DD)
+                $paid_up_to_formatted = date('Y-m-d', strtotime($paid_up_to));
+
+                //update payments table
+                mysqli_query($conn, "INSERT INTO payments (user_id, subscription_date, amount_paid ) values ($user_id,'$paid_up_to_formatted','$amount_paid')");
+
+                mysqli_query($conn, "INSERT INTO payments_history (user_id, subscription_date, amount_paid ) values ($user_id,'$paid_up_to_formatted','$amount_paid')");
+                echo "<script type='text/javascript'>alert('Payment added succesfully');</script>";
+                echo "<script> window.location.href= 'enter_payments.php'; </script>";
+                exit();
+            } else {
+                echo "<script type='text/javascript'>alert('Some has the same name, please use the email field');</script>";
+                echo "<script> window.location.href= 'enter_payments.php'; </script>";
+                exit();
+            }
+        } else {
+            echo "<script type='text/javascript'>alert('Member not found, Name not in database');</script>";
+            echo "<script> window.location.href= 'enter_payments.php'; </script>";
+            exit();
+        }
+
+        //updates user gender
+        $sql2 = "UPDATE members SET gender = '$gender' WHERE user_id = $user_id";
+        mysqli_query($conn, $sql2);
+    }
+    ?>
 
     <div class="container">
 
@@ -170,7 +220,7 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['userRole'] !== "Admin") {
 
 
             <div class="page-formCrt">
-                <form id="payment-form" action="enter-payments.php" method="post" onsubmit="event.preventDefault(); showPaymentConfirmation();">
+                <form id="payment-form" action="enter_payments.php" method="post" onsubmit="event.preventDefault(); showPaymentConfirmation();">
                     <div class="payment-page-settings-formCrt-top">
                         <h2 class="payment-page-heading">Payment Form</h2>
                     </div>
@@ -196,7 +246,7 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['userRole'] !== "Admin") {
                             </select>
                         </div>
                         <div class="payment-page-member-name-form">
-                            <label for="payment-page-payment-date" class="payment-page-name-title">Select Payment Date</label>
+                            <label for="payment-page-payment-date" class="payment-page-name-title">Select Date Paid up to</label>
                             <input type="month" id="payment-page-payment-date" name="payment_date" required class="payment-page-input-month">
                         </div>
                         <div class="payment-page-bottom">
@@ -209,7 +259,7 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['userRole'] !== "Admin") {
                             <h3>Confirm Payment</h3>
                             <p>First Name: <span id="confirm-first-name"></span></p>
                             <p>Last Name: <span id="confirm-last-name"></span></p>
-                            <p>Payment Amount: <span id="confirm-amount"></span></p>
+                            <p>Payment Amount: $<span id="confirm-amount"></span></p>
                             <p>Payment Date: <span id="confirm-date"></span></p>
                             <br />
                             <div class="confirmation-buttons">

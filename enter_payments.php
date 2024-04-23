@@ -104,7 +104,21 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['userRole'] !== "Admin") {
             if (mysqli_num_rows($members_result) == 1) {
                 $user_id = $members_row['user_id'];
                 //update payments table
-                mysqli_query($conn, "INSERT INTO payments (user_id, subscription_date, amount_paid ) values ($user_id,'$paid_up_to','$amount_paid')");
+                // Format the date in MySQL format (YYYY-MM-DD)
+                $paid_up_to_formatted = date('Y-m-d', strtotime($paid_up_to));
+
+                //update payments_history table
+                mysqli_query($conn, "INSERT INTO payments_history (user_id, subscription_date, amount_paid ) values ($user_id,'$paid_up_to_formatted','$amount_paid')");
+
+                //update payments table
+                $payments_result = mysqli_query($conn, "SELECT * FROM payments WHERE user_id =$user_id");
+                $payments_row = $payments_result->fetch_assoc();
+                if (mysqli_num_rows($payments_result) == 0) {
+                    mysqli_query($conn, "INSERT INTO payments (user_id, subscription_date) values ($user_id,'$paid_up_to_formatted')");
+                } else {
+                    mysqli_query($conn, "UPDATE payments SET subscription_date = '$paid_up_to_formatted' WHERE user_id = $user_id");
+                }
+
                 echo "<script type='text/javascript'>alert('Payment added succesfully');</script>";
                 echo "<script> window.location.href= 'enter_payments.php'; </script>";
                 exit();
@@ -118,10 +132,6 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['userRole'] !== "Admin") {
             echo "<script> window.location.href= 'enter_payments.php'; </script>";
             exit();
         }
-
-        //updates user gender
-        $sql2 = "UPDATE members SET gender = '$gender' WHERE user_id = $user_id";
-        mysqli_query($conn, $sql2);
     }
     ?>
 
@@ -244,7 +254,7 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['userRole'] !== "Admin") {
                             <input type="month" id="payment-page-payment-date" name="payment_date" required class="payment-page-input-month">
                         </div>
                         <div class="payment-page-bottom">
-                            <input type="submit" value="Enter" class="payment-page-input-submit">
+                            <input type="submit" value="Submit" class="payment-page-input-submit">
                             <input type="button" value="Go Back" onclick="history.back()" class="payment-page-input-button">
                         </div>
                     </div>

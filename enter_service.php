@@ -79,7 +79,60 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['userRole'] !== "Admin") {
         $_SESSION['animation-played'] = '.';
     endif;
     ?>
+    <?php
+    // Check if the form is submitted
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // Retrieve form data
+        $firstName = trim($_POST['first_name']);
+        $lastName = trim($_POST['last_name']);
+        $hours_worked = trim($_POST['hours_worked']);
+        $submitted_date = trim($_POST['submitted_date']);
 
+        $conn = mysqli_connect("localhost", "root", "", "pd_membersystem");
+
+        // Check connection
+        if (!$conn) {
+            die("Connection failed: " . mysqli_connect_error());
+        }
+
+        //updates user password
+        $members_result = mysqli_query($conn, "SELECT * FROM members WHERE first_name ='$firstName' && last_name ='$lastName'");
+        $members_row = $members_result->fetch_assoc();
+
+        if (mysqli_num_rows($members_result) != 0) {
+            if (mysqli_num_rows($members_result) == 1) {
+                $user_id = $members_row['user_id'];
+                //update payments table
+                // Format the date in MySQL format (YYYY-MM-DD)
+                $submitted_date_formatted = date('Y-m-d', strtotime($submitted_date));
+
+                //update payments_history table
+                mysqli_query($conn, "INSERT INTO community_history (user_id, hours_added, date_added ) values ($user_id, $hours_worked,' $submitted_date_formatted')");
+
+                //update payments table
+                $community_result = mysqli_query($conn, "SELECT * FROM community WHERE user_id =$user_id");
+
+                if (mysqli_num_rows($community_result) == 0) {
+                    mysqli_query($conn, "INSERT INTO community (user_id, total_hours) values ($user_id,' $hours_worked')");
+                } else {
+                    mysqli_query($conn, "UPDATE community SET total_hours = total_hours + $hours_worked WHERE user_id = $user_id");
+                }
+
+                echo "<script type='text/javascript'>alert('Hours updated succesfully');</script>";
+                echo "<script> window.location.href= 'enter_service.php'; </script>";
+                exit();
+            } else {
+                echo "<script type='text/javascript'>alert('Some has the same name, please use the email field');</script>";
+                echo "<script> window.location.href= 'enter_service.php'; </script>";
+                exit();
+            }
+        } else {
+            echo "<script type='text/javascript'>alert('Member not found, Name not in database');</script>";
+            echo "<script> window.location.href= 'enter_service.php'; </script>";
+            exit();
+        }
+    }
+    ?>
 
     <div class="container">
 

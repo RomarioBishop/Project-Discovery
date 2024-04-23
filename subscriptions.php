@@ -156,35 +156,88 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['userRole'] !== "Member") {
                 });
             </script>
         </aside>
-        <main class="subscriptions-main">
+        <main class="page-main">
 
-            <div class="subscriptions-heading">
-                <h1>Subscriptions History</h1>
-                <p class="sub-heading"> Manage Your Subscription Status</p>
 
+            <div class="page-heading">
+                <p>Subscriptions History</p>
+                <p class="sub-heading">Manage Your Subscription Status</p>
             </div>
 
             <div class="subscriptions-content">
                 <div class="subscription-status">
+
                     <div class="sub1-label">
+                        <i class="fa-regular fa-clock"></i>
                         <h2>Status</h2>
                     </div>
+
                     <div class="status-info">
-                        <div class="status">
+                        <div class="status1">
+                            <p>Subscribed</p>
+                        </div>
+                        <div class="status2">
+                            <p>You are subscribed untill: </p>
+                        </div>
+                        <div class="status3">
 
                         </div>
-                        <div class="time-remainding">
 
-                        </div>
                     </div>
-                </div>
+                    <div class="sub2-label">
+                        <i class="fa-regular fa-clock"></i>
+                        <h2>Recent Transactions</h2>
+                    </div>
 
-                <div>
+                    <div class="recent-info">
+                        <table>
+                            <tr>
+                                <th>#</th>
+                                <th>Payment ID </th>
+                                <th>Amount Paid</th>
+                                <th>Month of expiration</th>
+                            </tr>
+                            <?php
+                            $user_id = $_SESSION['user_id'];
+                            $payments_history = mysqli_query($conn, "SELECT * FROM payments_history WHERE user_id = $user_id  ORDER BY subscription_date DESC");
+                            if ($payments_history->num_rows > 0) {
+                                $counter = 1;
+                                while ($history_row = $payments_history->fetch_assoc()) {
+                                    // Convert MySQL date format to timestamp
+                                    $dateFromDB = $history_row['subscription_date'];
+                                    $timestamp = strtotime($dateFromDB);
 
+                                    // Format the timestamp to display the month name and year
+                                    $dateFormatted = date("F Y", $timestamp); // F returns the full month name, Y returns the year in 4 digits
+
+                                    echo "
+
+                                        <tr>
+                                            <td> {$counter} </td>
+                                            <td>" . $history_row['payment_id'] . " </td>
+                                            <td> $" . $history_row['amount_paid'] . "</td>
+                                            <td> {$dateFormatted} </td>
+                                        </tr>
+                                            
+
+                                        ";
+                                    $counter++;
+                                }
+                            }
+
+
+                            ?>
+                        </table>
+                    </div>
                 </div>
             </div>
 
-        </main>
+            <div>
+
+            </div>
+    </div>
+
+    </main>
 
     </div>
 
