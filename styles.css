@@ -683,7 +683,7 @@ input[id="verify_password3"] {
   display: flex;
 
   align-items: center;
-  margin-top: 4rem;
+  margin-top: 6rem;
 }
 
 .sub1-label i {
@@ -725,10 +725,11 @@ input[id="verify_password3"] {
   justify-content: space-between;
   align-items: center;
 }
-.status1 {
+
+/* .status1 {
   color: green;
   font-size: 1.6rem;
-}
+} */
 
 .recent-info {
   margin-top: 0.5rem;
@@ -755,7 +756,9 @@ td {
 th {
   background-color: var(--table-primary-color);
 }
-
+.table-margin {
+  border-right: 1px solid black;
+}
 tr {
   background-color: var(--table-primary-color);
   border-top: 1px solid black;
@@ -769,6 +772,22 @@ tr {
     display: block;
     overflow-x: auto;
   }
+}
+/* === Member Community styling*/
+.progress {
+  height: 20px;
+  width: 100%;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+.progress-bar {
+  height: 100%;
+  color: #fff;
+  text-align: center;
+  line-height: 20px;
+  background-color: #007bff;
 }
 
 /*== Admin Enter form styling ==*/
@@ -960,7 +979,7 @@ tr {
 
   .page-main {
     width: 100%;
-    margin-left: 0;
+    margin-left: 2rem;
   }
 
   .page-heading {

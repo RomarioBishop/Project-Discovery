@@ -29,7 +29,7 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['userRole'] !== "Admin") {
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <meta name="author" content="Ode Millington">
     <meta name="author" content="Romario Bishop">
-    <title>WeWaffle | Messaging</title>
+    <title>Project Discovery | Viewing</title>
     <script src="https://kit.fontawesome.com/10a23fabac.js" crossorigin="anonymous"></script>
 </head>
 
@@ -247,7 +247,7 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['userRole'] !== "Admin") {
                         <div class="community-service-page-bottom">
                             <input type="submit" value="Submit" class="community-service-page-input-submit">
 
-                            <input type="button" value="Cancel" onclick="history.back()" class="community-service-page-input-button">
+                            <input type="button" value="Clear" onclick="clearForm()" class="community-service-page-input-button">
                         </div>
                         <div id="confirmation-box" class="confirmation-box">
                             <div class="confirmation-content">
@@ -286,6 +286,18 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['userRole'] !== "Admin") {
 
                     function cancelConfirmation() {
                         document.getElementById("confirmation-box").style.display = "none";
+                    }
+
+                    function clearForm() {
+                        var form = document.getElementById("service-entry-form");
+                        var elements = form.elements;
+
+                        for (var i = 0; i < elements.length; i++) {
+                            var element = elements[i];
+                            if (element.type !== "submit" && element.type !== "button") {
+                                element.value = "";
+                            }
+                        }
                     }
                 </script>
             </div>

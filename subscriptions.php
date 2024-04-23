@@ -29,7 +29,7 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['userRole'] !== "Member") {
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <meta name="author" content="Ode Millington">
     <meta name="author" content="Romario Bishop">
-    <title>WeWaffle | Messaging</title>
+    <title>Project Discovery | Viewing</title>
     <script src="https://kit.fontawesome.com/10a23fabac.js" crossorigin="anonymous"></script>
 </head>
 
@@ -171,19 +171,71 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['userRole'] !== "Member") {
                         <i class="fa-regular fa-clock"></i>
                         <h2>Status</h2>
                     </div>
+                    <?php
+                    $user_id = $_SESSION['user_id'];
+                    $payments = mysqli_query($conn, "SELECT * FROM payments WHERE user_id = $user_id");
+                    if ($payments->num_rows > 0) {
+                        $payments_row = $payments->fetch_assoc();
+                        // Convert MySQL date format to timestamp
+                        $text_databaseDate = $payments_row['subscription_date'];
+                        $timestamp = strtotime($text_databaseDate);
 
-                    <div class="status-info">
-                        <div class="status1">
-                            <p>Subscribed</p>
-                        </div>
-                        <div class="status2">
-                            <p>You are subscribed untill: </p>
-                        </div>
-                        <div class="status3">
+                        // Format the timestamp to display the month name and year
+                        $dateFormatted = date("F Y", $timestamp); // F returns the full month name, Y returns the year in 4 digits
 
-                        </div>
+                        // checking if theya re currenty subscribed or not
+                        $databaseDate = new DateTime($payments_row['subscription_date']);
+                        $currentDate = new DateTime();
 
-                    </div>
+                        //calulate the difference in months
+                        $intervals = $databaseDate->diff($currentDate);
+
+                        $monthsDifference = $intervals->m + ($intervals->y * 12);
+
+                        if ($databaseDate >= $currentDate || $monthsDifference == 0 || $monthsDifference <= 2) {
+                            $paymentStatus = true;
+                            $arrears = "";
+                            $addon = "ing";
+                            $isPaid = "<p> You are: <span style='color:#00b894;font-size: 1.4rem'> Subscribed </span> </p>";
+                            if ($monthsDifference > 0 && $monthsDifference <= 2) {
+                                $prohibition = true;
+                                $prohibition_months = $monthsDifference;
+                                $arrears = "You have: " . $prohibition_months . " month to pay to avoid being unsubscribed";
+                                $addon = "ed";
+                            }
+                            if ($databaseDate >= $currentDate) {
+                                $arrears = "";
+                                $addon = "ed";
+                            }
+                        } else {
+                            $paymentStatus = false;
+                            $isPaid = "<p> You are: <span style='color:crimson;font-size: 1.6rem'> Not&nbsp;Paid </span> </p>";
+                            $arrears_months = $monthsDifference;
+                            $arrears = "You are overdue on payment for: " . $arrears_months . " months";
+                        }
+                    } else {
+                        $isPaid = "<p> <span style='color:crimson;font-size: 1.6rem'> You have not Yet subscribed </span> </p>";
+                        $dateFormatted = "No Data Yet";
+                        $arrears = "";
+                        $addon = "ing";
+                    }
+
+                    echo "
+                                    <div class='status-info'>
+                                        <div class='status1'>
+                                            
+                                            {$isPaid}
+                                        </div>
+                                        <div class='status2'>
+                                            <p>Subscription expir{$addon}: <span style='font-weight:600;color:orangered;'>  {$dateFormatted} <span> </p>
+                                        </div>
+                                        <div class='status3'>
+                                            <p>{$arrears}</p>
+                                        </div>
+
+                                    </div>
+                            ";
+                    ?>
                     <div class="sub2-label">
                         <i class="fa-regular fa-clock"></i>
                         <h2>Recent Transactions</h2>
@@ -192,7 +244,7 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['userRole'] !== "Member") {
                     <div class="recent-info">
                         <table>
                             <tr>
-                                <th>#</th>
+                                <th class="table-margin">#</th>
                                 <th>Payment ID </th>
                                 <th>Amount Paid</th>
                                 <th>Month of expiration</th>
@@ -213,7 +265,7 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['userRole'] !== "Member") {
                                     echo "
 
                                         <tr>
-                                            <td> {$counter} </td>
+                                            <td class='table-margin'> {$counter} </td>
                                             <td>" . $history_row['payment_id'] . " </td>
                                             <td> $" . $history_row['amount_paid'] . "</td>
                                             <td> {$dateFormatted} </td>

@@ -29,7 +29,7 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['userRole'] !== "Admin") {
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <meta name="author" content="Ode Millington">
     <meta name="author" content="Romario Bishop">
-    <title>WeWaffle | Messaging</title>
+    <title>Project Discovery | Viewing</title>
     <script src="https://kit.fontawesome.com/10a23fabac.js" crossorigin="anonymous"></script>
 </head>
 
@@ -255,7 +255,7 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['userRole'] !== "Admin") {
                         </div>
                         <div class="payment-page-bottom">
                             <input type="submit" value="Submit" class="payment-page-input-submit">
-                            <input type="button" value="Go Back" onclick="history.back()" class="payment-page-input-button">
+                            <input type="button" value="Clear" onclick="clearForm()" class="payment-page-input-button">
                         </div>
                     </div>
                     <div id="confirmation-box" class="confirmation-box">
@@ -297,6 +297,18 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['userRole'] !== "Admin") {
 
                     function cancelPayment() {
                         document.getElementById("confirmation-box").style.display = "none";
+                    }
+
+                    function clearForm() {
+                        var form = document.getElementById("payment-form");
+                        var elements = form.elements;
+
+                        for (var i = 0; i < elements.length; i++) {
+                            var element = elements[i];
+                            if (element.type !== "submit" && element.type !== "button") {
+                                element.value = "";
+                            }
+                        }
                     }
                 </script>
             </div>

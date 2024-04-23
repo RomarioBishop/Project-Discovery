@@ -26,7 +26,7 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['userRole'] !== "Member") {
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <meta name="author" content="Ode Millington">
     <meta name="author" content="Romario Bishop">
-    <title>WeWaffle | Messaging</title>
+    <title>Project Discovery | Viewing</title>
     <script src="https://kit.fontawesome.com/10a23fabac.js" crossorigin="anonymous"></script>
 </head>
 
@@ -222,12 +222,11 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['userRole'] !== "Member") {
                                 <option value="Female">Female</option>
                             </select>
 
-                            <p class="underline"></p>
                         </div>
 
                         <div class="settings-heading-password">
                             <p>Update Password Here</p>
-                            <p class="sub-heading">Elevate Your Account Protection</p>
+                            <p class="underline"></p>
                         </div>
 
                         <div>

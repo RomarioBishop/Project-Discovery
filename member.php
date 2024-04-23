@@ -29,7 +29,7 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['userRole'] !== "Member") {
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <meta name="author" content="Ode Millington">
     <meta name="author" content="Romario Bishop">
-    <title>WeWaffle | Messaging</title>
+    <title>Project Discovery | Viewing</title>
     <script src="https://kit.fontawesome.com/10a23fabac.js" crossorigin="anonymous"></script>
 </head>
 
@@ -107,12 +107,12 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['userRole'] !== "Member") {
                     <ul class="top-items">
                         <li><a href="dashboard.php">
                                 <i class="fa-sharp fa-solid fa-gauge"></i>
-                                <span class="link-name active-page">Dashboard</span>
+                                <span class="link-name">Dashboard</span>
                             </a>
                         </li>
                         <li><a href="subscriptions.php">
                                 <i class="fa-solid fa-circle-dollar-to-slot"></i>
-                                <span class="link-name">Subscriptions</span>
+                                <span class="link-name active-page">Subscriptions</span>
                             </a>
                         </li>
                         <li><a href="community.php">
@@ -156,53 +156,140 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['userRole'] !== "Member") {
                 });
             </script>
         </aside>
-        <main class="main">
+        <main class="page-main">
 
-            <div class="heading">
-                <?php
-                $databaseDate = new DateTime("2024-01-01");
 
-                $currentDate = new DateTime("2024-01-01");
+            <div class="page-heading">
+                <p>Subscriptions History</p>
+                <p class="sub-heading">Manage Your Subscription Status</p>
+            </div>
 
-                //calulate the difference in months
-                $intervals = $databaseDate->diff($currentDate);
+            <div class="subscriptions-content">
+                <div class="subscription-status">
 
-                $monthsDifference = $intervals->m + ($intervals->y * 12);
-                echo $monthsDifference . "<br>";
-                // If the current date is ahead of the last payment date or it's the same month, set payment status to true
-                if ($databaseDate >= $currentDate || $monthsDifference == 0 || $monthsDifference <= 2) {
-                    $paymentStatus = true;
-                    $arrears = false;
-                    echo "Payment status: " . ($paymentStatus ? "Paid" : "Unpaid");
-                    echo "<br>";
-                    if ($monthsDifference > 0 && $monthsDifference <= 2) {
-                        $prohibition = true;
-                        $prohibition_months = $monthsDifference;
-                        echo "Prohibition status: In Prohibition";
-                        echo "<br>";
-                        echo "Overdue by: " . $prohibition_months;
+                    <div class="sub1-label">
+                        <i class="fa-regular fa-clock"></i>
+                        <h2>Status</h2>
+                    </div>
+                    <?php
+                    $user_id = $_SESSION['user_id'];
+                    $payments = mysqli_query($conn, "SELECT * FROM payments WHERE user_id = $user_id");
+                    if ($payments->num_rows > 0) {
+                        $payments_row = $payments->fetch_assoc();
+                        // Convert MySQL date format to timestamp
+                        $text_databaseDate = $payments_row['subscription_date'];
+                        $timestamp = strtotime($text_databaseDate);
+
+                        // Format the timestamp to display the month name and year
+                        $dateFormatted = date("F Y", $timestamp); // F returns the full month name, Y returns the year in 4 digits
+
+                        // checking if theya re currenty subscribed or not
+                        $databaseDate = new DateTime($payments_row['subscription_date']);
+                        $currentDate = new DateTime();
+
+                        //calulate the difference in months
+                        $intervals = $databaseDate->diff($currentDate);
+
+                        $monthsDifference = $intervals->m + ($intervals->y * 12);
+
+                        if ($databaseDate >= $currentDate || $monthsDifference == 0 || $monthsDifference <= 2) {
+                            $paymentStatus = true;
+                            $arrears = "";
+                            $addon = "ing";
+                            $isPaid = "<p> You are: <span style='color:#00b894;font-size: 1.4rem'> Subscribed </span> </p>";
+                            if ($monthsDifference > 0 && $monthsDifference <= 2) {
+                                $prohibition = true;
+                                $prohibition_months = $monthsDifference;
+                                $arrears = "You have: " . $prohibition_months . " month to pay to avoid being unsubscribed";
+                                $addon = "ed";
+                            }
+                            if ($databaseDate >= $currentDate) {
+                                $arrears = "";
+                                $addon = "ed";
+                            }
+                        } else {
+                            $paymentStatus = false;
+                            $isPaid = "<p> You are: <span style='color:crimson;font-size: 1.6rem'> Not&nbsp;Paid </span> </p>";
+                            $arrears_months = $monthsDifference;
+                            $arrears = "You are overdue on payment for: " . $arrears_months . " months";
+                        }
+                    } else {
+                        $isPaid = "<p> <span style='color:crimson;font-size: 1.6rem'> You have not Yet subscribed </span> </p>";
+                        $dateFormatted = "No Data Yet";
+                        $arrears = "";
+                        $addon = "ing";
                     }
-                } else {
-                    $paymentStatus = false;
-                    $arrears = true;
-                    $arrears_months = $monthsDifference;
-                    echo "Payment status: " . ($paymentStatus ? "Paid" : "Unpaid");
-                    echo "<br>";
-                    echo "Arrears status: " . ($arrears ? "In Arrears, Not Subscribed" : "Still counted as Paid");
-                    echo "<br>";
-                    echo "Overdue by: " . $arrears_months;
-                }
-                ?>
+
+                    echo "
+                                    <div class='status-info'>
+                                        <div class='status1'>
+                                            
+                                            {$isPaid}
+                                        </div>
+                                        <div class='status2'>
+                                            <p>Subscription expir{$addon}: <span style='font-weight:600;color:orangered;'>  {$dateFormatted} <span> </p>
+                                        </div>
+                                        <div class='status3'>
+                                            <p>{$arrears}</p>
+                                        </div>
+
+                                    </div>
+                            ";
+                    ?>
+                    <div class="sub2-label">
+                        <i class="fa-regular fa-clock"></i>
+                        <h2>Recent Transactions</h2>
+                    </div>
+
+                    <div class="recent-info">
+                        <table>
+                            <tr>
+                                <th class="table-margin">#</th>
+                                <th>Payment ID </th>
+                                <th>Amount Paid</th>
+                                <th>Month of expiration</th>
+                            </tr>
+                            <?php
+                            $user_id = $_SESSION['user_id'];
+                            $payments_history = mysqli_query($conn, "SELECT * FROM payments_history WHERE user_id = $user_id  ORDER BY subscription_date DESC");
+                            if ($payments_history->num_rows > 0) {
+                                $counter = 1;
+                                while ($history_row = $payments_history->fetch_assoc()) {
+                                    // Convert MySQL date format to timestamp
+                                    $dateFromDB = $history_row['subscription_date'];
+                                    $timestamp = strtotime($dateFromDB);
+
+                                    // Format the timestamp to display the month name and year
+                                    $dateFormatted = date("F Y", $timestamp); // F returns the full month name, Y returns the year in 4 digits
+
+                                    echo "
+
+                                        <tr>
+                                            <td class='table-margin'> {$counter} </td>
+                                            <td>" . $history_row['payment_id'] . " </td>
+                                            <td> $" . $history_row['amount_paid'] . "</td>
+                                            <td> {$dateFormatted} </td>
+                                        </tr>
+                                            
+
+                                        ";
+                                    $counter++;
+                                }
+                            }
 
 
-
+                            ?>
+                        </table>
+                    </div>
+                </div>
             </div>
 
-            <div class="content">
+            <div>
 
             </div>
+    </div>
 
-        </main>
+    </main>
 
     </div>
 
