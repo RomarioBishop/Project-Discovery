@@ -732,11 +732,11 @@ input[id="verify_password3"] {
 
 .recent-info {
   margin-top: 0.5rem;
-  background-color: var(--table-primary-color);
+  background-color: transparent;
   height: 400px;
   border-radius: 5px;
   padding: 5px;
-  overflow: scroll;
+  overflow-y: auto;
 }
 
 table {
