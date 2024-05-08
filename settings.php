@@ -104,8 +104,10 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['userRole'] !== "Member") {
         $sql1 = "UPDATE credentials SET passwords = '$password_hashed' WHERE user_id = $user_id";
         mysqli_query($conn, $sql1);
         //updates user gender
-        $sql2 = "UPDATE members SET gender = '$gender' WHERE user_id = $user_id";
-        mysqli_query($conn, $sql2);
+        // $sql2 = "UPDATE members SET gender = '$gender' WHERE user_id = $user_id";
+        // mysqli_query($conn, $sql2);
+        echo "<script type='text/javascript'>alert('Password has been reset');</script>";
+        echo "<script> window.location.href= 'index.php'; </script>";
     }
     ?>
     <div class="container">
@@ -132,11 +134,11 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['userRole'] !== "Member") {
                 </div>
                 <div class="menu-items">
                     <ul class="top-items">
-                        <li><a href="dashboard.php">
+                        <!-- <li><a href="dashboard.php">
                                 <i class="fa-sharp fa-solid fa-gauge"></i>
                                 <span class="link-name">Dashboard</span>
                             </a>
-                        </li>
+                        </li> -->
                         <li><a href="subscriptions.php">
                                 <i class="fa-solid fa-circle-dollar-to-slot"></i>
                                 <span class="link-name">Subscriptions</span>
@@ -210,7 +212,7 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['userRole'] !== "Member") {
                             ?>
                         </div>
 
-                        <div>
+                        <!-- <div>
                             <p class="member-email-title">GENDER</p>
 
                             <select name="gender" id="gender" style="padding-right: 10px;">
@@ -222,7 +224,10 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['userRole'] !== "Member") {
                                 <option value="Female">Female</option>
                             </select>
 
-                        </div>
+                        </div> -->
+
+                        <br>
+                        <br>
 
                         <div class="settings-heading-password">
                             <p>Update Password Here</p>
@@ -233,6 +238,11 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['userRole'] !== "Member") {
                             <p class="member-password-title">NEW PASSWORD</p>
                             <input type="password" id="password3" name="newPwd" size="25" placeholder="Enter your new password here">
                             <p class="underline"></p>
+                        </div>
+
+                        <div class="showPasswordDiv2">
+                            <label id="showpass" for="showPass">Show Password</label>
+                            <input type="checkbox" id="showpass" onclick="showPass()">
                         </div>
 
                         <div>
@@ -257,6 +267,15 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['userRole'] !== "Member") {
                                     return false; // Prevent form submission
                                 }
                                 return true; // Allow form submission
+                            }
+
+                            function showPass() {
+                                let pass = document.getElementById("password3");
+                                if (pass.type === "password") {
+                                    pass.type = "text";
+                                } else {
+                                    pass.type = "password";
+                                }
                             }
                         </script>
 

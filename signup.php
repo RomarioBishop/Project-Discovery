@@ -181,8 +181,9 @@ session_start();
                         </div>
 
                         <div class="bottom">
-                            <button type="button" onclick="previousStep()"> Go back </button>
                             <input type="submit" value="Sign Up">
+                            <button type="button" onclick="previousStep()"> Go back </button>
+
                         </div>
 
                     </div>

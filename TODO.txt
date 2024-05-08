@@ -1,3 +1,7 @@
 add months paid for to forms and database etc
 add delete feature for admins maybe
 fix up light mode toggle, make it remember as well
+change payment ID for subscription to date updated, so got to add that to the database
+add the ability to delete as admin from the logs?
+add validation on first name and last name on account signup
+add beginning pop up for newly signup users.

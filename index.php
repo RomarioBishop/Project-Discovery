@@ -4,6 +4,7 @@ session_start();
 
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,7 +31,6 @@ session_start();
 
 <body>
 
-
     <?php
 
     session_destroy();
@@ -48,8 +48,34 @@ session_start();
         }
     </script>
 
+    <style>
+        /* Style for the timeout message */
+        #timeoutMessage {
+            background-color: #f2dede;
+            color: #a94442;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            text-align: center;
+            z-index: 9999;
+            /* Initially hidden */
+        }
+    </style>
+
+
+
+
     <div class="login-page">
         <div class="index-container">
+            <?php
+            if (isset($_SESSION['login_attempts'])) {
+                if ($_SESSION['login_attempts'] >= 1) {
+                    // Display timeout message
+                    echo "<div id='timeoutMessage'>Too many failed login attempts. Please try again later.</div>";
+                }
+            }
+            ?>
+
             <div class="info">
 
                 <div>
@@ -81,7 +107,12 @@ session_start();
                         </div>
                         <div class="gosignup">
                             <p>Don't have an account? <a style="font-weight:bold" href="signup.php"> REGISTER HERE </a></p>
+                            <?php
 
+                            if (isset($_SESSION['login_attempts'])) {
+                                echo "{$_SESSION['login_attempts']}";
+                            }
+                            ?>
                         </div>
                     </div>
 
@@ -107,5 +138,12 @@ session_start();
         </div>
     </div>
 </body>
+<script defer>
+    // JavaScript to hide the timeout message after 10 seconds
+
+    setTimeout(function() {
+        document.getElementById('timeoutMessage').style.display = 'none';
+    }, 10000);
+</script>
 
 </html>

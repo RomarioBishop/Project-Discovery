@@ -105,11 +105,11 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['userRole'] !== "Member") {
                 </div>
                 <div class="menu-items">
                     <ul class="top-items">
-                        <li><a href="dashboard.php">
+                        <!-- <li><a href="dashboard.php">
                                 <i class="fa-sharp fa-solid fa-gauge"></i>
                                 <span class="link-name">Dashboard</span>
                             </a>
-                        </li>
+                        </li> -->
                         <li><a href="subscriptions.php">
                                 <i class="fa-solid fa-circle-dollar-to-slot"></i>
                                 <span class="link-name active-page">Subscriptions</span>
@@ -212,6 +212,7 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['userRole'] !== "Member") {
                             $isPaid = "<p> You are: <span style='color:crimson;font-size: 1.6rem'> Not&nbsp;Paid </span> </p>";
                             $arrears_months = $monthsDifference;
                             $arrears = "You are overdue on payment for: " . $arrears_months . " months";
+                            $addon = "ed";
                         }
                     } else {
                         $isPaid = "<p> <span style='color:crimson;font-size: 1.6rem'> You have not Yet subscribed </span> </p>";

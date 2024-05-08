@@ -18,7 +18,16 @@ if (!isset($_SESSION['loggedIn'])) {
     if (mysqli_num_rows($credentials_result) != 1) {
 
         $_SESSION['error'] = ".";
+
+        if (!isset($_SESSION['login_attempts'])) {
+            $_SESSION['login_attempts'] = 2;
+        } else {
+            $_SESSION['login_attempts'] = 5;
+        }
+
         echo "<script> window.location.href= '../index.php'; </script>";
+
+
         die();
     } else {
         $credentials_row = $credentials_result->fetch_assoc();
@@ -51,6 +60,11 @@ if (!isset($_SESSION['loggedIn'])) {
         } else {
             $_SESSION['error'] = ".";
             echo "<script> window.location.href= '../index.php'; </script>";
+            if (!isset($_SESSION['login_attempts'])) {
+                $_SESSION['login_attempts'] = 2;
+            } else {
+                $_SESSION['login_attempts']++;
+            }
             die();
         }
     }
