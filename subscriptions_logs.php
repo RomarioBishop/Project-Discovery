@@ -80,65 +80,8 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['userRole'] !== "Admin") {
     endif;
     ?>
 
-    <?php
-    // Check if the form is submitted
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // Retrieve form data
-        $fullname = $_POST['fullname'];
-        $nameParts = explode(' ', $fullname);
-        $firstnamedb = $nameParts[0];
-        $lastnamedb = $nameParts[1]; // In case last name is not provided
-
-        // Use $firstname and $lastname as needed
-        echo "First Name: $firstnamedb <br>";
-        echo "Last Name: $lastnamedb";
 
 
-        $conn = mysqli_connect("localhost", "root", "", "pd_membersystem");
-
-        // Check connection
-        if (!$conn) {
-            die("Connection failed: " . mysqli_connect_error());
-        }
-
-        // //updates user password
-        // $members_result = mysqli_query($conn, "SELECT * FROM members WHERE first_name ='$firstName' && last_name ='$lastName'");
-        // $members_row = $members_result->fetch_assoc();
-
-        // if (mysqli_num_rows($members_result) != 0) {
-        //     if (mysqli_num_rows($members_result) == 1) {
-        //         $user_id = $members_row['user_id'];
-        //         //update payments table
-        //         // Format the date in MySQL format (YYYY-MM-DD)
-        //         $paid_up_to_formatted = date('Y-m-d', strtotime($paid_up_to));
-
-        //         //update payments_history table
-        //         mysqli_query($conn, "INSERT INTO payments_history (user_id, subscription_date, amount_paid ) values ($user_id,'$paid_up_to_formatted','$amount_paid')");
-
-        //         //update payments table
-        //         $payments_result = mysqli_query($conn, "SELECT * FROM payments WHERE user_id =$user_id");
-        //         $payments_row = $payments_result->fetch_assoc();
-        //         if (mysqli_num_rows($payments_result) == 0) {
-        //             mysqli_query($conn, "INSERT INTO payments (user_id, subscription_date) values ($user_id,'$paid_up_to_formatted')");
-        //         } else {
-        //             mysqli_query($conn, "UPDATE payments SET subscription_date = '$paid_up_to_formatted' WHERE user_id = $user_id");
-        //         }
-
-        //         echo "<script type='text/javascript'>alert('Payment added succesfully');</script>";
-        //         echo "<script> window.location.href= 'enter_payments.php'; </script>";
-        //         exit();
-        //     } else {
-        //         echo "<script type='text/javascript'>alert('Some has the same name, please use the email field');</script>";
-        //         echo "<script> window.location.href= 'enter_payments.php'; </script>";
-        //         exit();
-        //     }
-        // } else {
-        //     echo "<script type='text/javascript'>alert('Member not found, Name not in database');</script>";
-        //     echo "<script> window.location.href= 'enter_payments.php'; </script>";
-        //     exit();
-        // }
-    }
-    ?>
 
     <div class="container">
 
@@ -236,6 +179,7 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['userRole'] !== "Admin") {
                         $members_result = mysqli_query($conn, "SELECT * FROM members");
                         if ($members_result->num_rows > 0) {
                             $counter = 1;
+                            echo "<option value='All'>Show all members</option>";
                             while ($members_row = $members_result->fetch_assoc()) {
 
                                 $role = $members_row["roles"];
@@ -274,39 +218,169 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['userRole'] !== "Admin") {
                     <tr>
                         <th class="table-margin"> #</th>
                         <th>Full Name</th>
-                        <th>Amount Paid</th>
+                        <th>Status</th>
                         <th>Month of expiration</th>
                     </tr>
                     <?php
+                    // Check if the form is submitted
+                    if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-                    $user_id = $_SESSION['user_id'];
-                    $payments_history = mysqli_query($conn, "SELECT * FROM payments_history ORDER BY subscription_date DESC");
-                    $payments_history = mysqli_query($conn, "SELECT * FROM payments_history ORDER BY subscription_date DESC");
-                    //use joins
-                    if ($payments_history->num_rows > 0) {
-                        $counter = 1;
-                        while ($history_row = $payments_history->fetch_assoc()) {
-                            // Convert MySQL date format to timestamp
-                            $dateFromDB = $history_row['subscription_date'];
-                            $timestamp = strtotime($dateFromDB);
+                        $conn = mysqli_connect("localhost", "root", "", "pd_membersystem");
 
-                            // Format the timestamp to display the month name and year
-                            $dateFormatted = date("F Y", $timestamp); // F returns the full month name, Y returns the year in 4 digits
+                        // Check connection
+                        if (!$conn) {
+                            die("Connection failed: " . mysqli_connect_error());
+                        }
 
-                            echo "
+                        $fullname = $_POST['fullname'];
 
-                                        <tr>
-                                            <td class='table-margin'> {$counter} </td>
-                                            <td>" . $history_row['payment_id'] . " </td>
-                                            <td> $" . $history_row['amount_paid'] . "</td>
-                                            <td> {$dateFormatted} </td>
-                                        </tr>
-                                            
+                        if ($fullname !== 'All') {
+                            // Retrieve form data
 
-                                        ";
-                            $counter++;
+                            $nameParts = explode(' ', $fullname);
+                            $firstNamedb = $nameParts[0];
+                            $lastNamedb = $nameParts[1]; // In case last name is not provided
+
+                            // Use $firstname and $lastname as needed
+                            // echo "First Name: $firstNamedb <br>";
+                            // echo "Last Name: $lastNamedb";
+
+                            $members_result2 = mysqli_query($conn, "SELECT * FROM members WHERE first_name ='$firstNamedb' && last_name ='$lastNamedb'");
+                            $members_row2 = $members_result2->fetch_assoc();
+                            $user_id = $members_row2['user_id'];
+                            $payments = mysqli_query($conn, "SELECT * FROM payments WHERE user_id = $user_id  ORDER BY subscription_date DESC");
+
+                            if ($payments->num_rows > 0) {
+                                $counter = 1;
+                                while ($payments_row = $payments->fetch_assoc()) {
+                                    // Convert MySQL date format to timestamp
+                                    $dateFromDB = $payments_row['subscription_date'];
+                                    $timestamp = strtotime($dateFromDB);
+
+                                    // Format the timestamp to display the month name and year
+                                    $dateFormatted = date("F Y", $timestamp); // F returns the full month name, Y returns the year in 4 digits
+                                    // checking if theya re currenty subscribed or not
+                                    $databaseDate = new DateTime($payments_row['subscription_date']);
+                                    $currentDate = new DateTime();
+
+                                    //calulate the difference in months
+                                    $intervals = $databaseDate->diff($currentDate);
+
+                                    $monthsDifference = $intervals->m + ($intervals->y * 12);
+
+                                    if (
+                                        $databaseDate >= $currentDate || $monthsDifference == 0 || $monthsDifference <= 2
+                                    ) {
+                                        $paymentStatus = '<td style="color:#00b894;">  Subscribed </td>';
+                                        $arrears = "";
+                                        $addon = "ing";
+                                        $isPaid = "<p> You are: <span style='color:#00b894;font-size: 1.4rem'> Subscribed </span> </p>";
+                                        if ($monthsDifference > 0 && $monthsDifference <= 2) {
+                                            $paymentStatus = '<td style="color:#FFA500;">  Subscribed** </td>';
+                                        }
+                                        if ($databaseDate >= $currentDate) {
+                                            $paymentStatus = '<td style="color:#00b894;">  Subscribed </td>';
+                                        }
+                                    } else {
+                                        $paymentStatus = '<td style="color:crimson;"> Not Subscribed </td>';
+                                    }
+
+
+                                    echo "
+                                    <tr>
+                                        <td class='table-margin'> {$counter} </td>
+                                        <td>" . $fullname . " </td>
+                                        $paymentStatus 
+                                        <td> {$dateFormatted} </td>
+                                    </tr>
+                                    ";
+                                    $counter++;
+                                }
+                            } else {
+                                echo "
+                                    <tr>
+                                        <td class='table-margin'> {$counter} </td>
+                                        <td>" . $fullname . " </td>
+                                        <td>  This person has never subscribed before! </td>
+                                        <td>  </td>
+                                    </tr>
+                                    ";
+                            }
+                        } else {
+
+
+                            $members_result2 = mysqli_query($conn, "SELECT * FROM members");
+
+
+                            if ($members_result->num_rows > 0) {
+                                $counter = 1;
+                                while ($members_row2 = $members_result2->fetch_assoc()) {
+                                    //get each member info for each loop
+                                    $user_id = $members_row2['user_id'];
+                                    $firstnameAlt = $members_row2["first_name"];
+                                    $lastnameAlt = $members_row2["last_name"];
+                                    $role = $members_row2["roles"];
+                                    if ($role == "Admin") {
+                                        continue;
+                                    }
+                                    // now get the specific payment info for each member
+                                    $payments = mysqli_query($conn, "SELECT * FROM payments WHERE user_id = $user_id  ORDER BY subscription_date DESC");
+                                    $payments_row = $payments->fetch_assoc();
+
+                                    // Convert MySQL date format to timestamp
+                                    if ($payments_row == null) {
+                                        continue;
+                                    }
+                                    $dateFromDB = $payments_row['subscription_date'];
+                                    if ($dateFromDB == null) {
+                                        continue;
+                                    }
+                                    $timestamp = strtotime($dateFromDB);
+
+                                    // Format the timestamp to display the month name and year
+                                    $dateFormatted = date("F Y", $timestamp); // F returns the full month name, Y returns the year in 4 digits
+                                    // checking if theya re currenty subscribed or not
+                                    $databaseDate = new DateTime($payments_row['subscription_date']);
+                                    $currentDate = new DateTime();
+
+                                    //calulate the difference in months
+                                    $intervals = $databaseDate->diff($currentDate);
+
+                                    $monthsDifference = $intervals->m + ($intervals->y * 12);
+
+                                    if (
+                                        $databaseDate >= $currentDate || $monthsDifference == 0 || $monthsDifference <= 2
+                                    ) {
+                                        $paymentStatus = '<td style="color:#00b894;">  Subscribed </td>';
+                                        $arrears = "";
+                                        $addon = "ing";
+                                        $isPaid = "<p> You are: <span style='color:#00b894;font-size: 1.4rem'> Subscribed </span> </p>";
+                                        if ($monthsDifference > 0 && $monthsDifference <= 2) {
+                                            $paymentStatus = '<td style="color:#FFA500;">  Subscribed** </td>';
+                                        }
+                                        if ($databaseDate >= $currentDate) {
+                                            $paymentStatus = '<td style="color:#00b894;">  Subscribed </td>';
+                                        }
+                                    } else {
+                                        $paymentStatus = '<td style="color:crimson;"> Not Subscribed </td>';
+                                    }
+
+
+                                    echo "
+                                    <tr>
+                                        <td class='table-margin'> {$counter} </td>
+                                        <td> {$firstnameAlt} {$lastnameAlt}</td>
+                                        $paymentStatus 
+                                        <td> {$dateFormatted} </td>
+                                    </tr>
+                                    ";
+                                    $counter++;
+                                }
+                            }
                         }
                     }
+
+
 
 
                     ?>

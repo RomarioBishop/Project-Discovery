@@ -71,7 +71,7 @@ session_start();
             if (isset($_SESSION['login_attempts'])) {
                 if ($_SESSION['login_attempts'] >= 1) {
                     // Display timeout message
-                    echo "<div id='timeoutMessage'>Too many failed login attempts. Please try again later.</div>";
+                    echo "<div id='timeoutMessage'>failed login attempt. Please try again in 5 seconds.</div>";
                 }
             }
             ?>
@@ -107,12 +107,7 @@ session_start();
                         </div>
                         <div class="gosignup">
                             <p>Don't have an account? <a style="font-weight:bold" href="signup.php"> REGISTER HERE </a></p>
-                            <?php
 
-                            if (isset($_SESSION['login_attempts'])) {
-                                echo "{$_SESSION['login_attempts']}";
-                            }
-                            ?>
                         </div>
                     </div>
 
@@ -143,7 +138,7 @@ session_start();
 
     setTimeout(function() {
         document.getElementById('timeoutMessage').style.display = 'none';
-    }, 10000);
+    }, 5000);
 </script>
 
 </html>
