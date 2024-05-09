@@ -169,11 +169,11 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['userRole'] !== "Admin") {
                                 <span class="link-name">Enter Hours</span>
                             </a>
                         </li>
-                        <li><a href="changes_logs.php">
+                        <!-- <li><a href="changes_logs.php">
                                 <i class="fa-solid fa-gear"></i>
                                 <span class="link-name">Changes Logs</span>
                             </a>
-                        </li>
+                        </li> -->
                         <li><a href="subscriptions_logs.php">
                                 <i class="fa-solid fa-gear"></i>
                                 <span class="link-name">Subscriptions Logs</span>
@@ -205,6 +205,7 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['userRole'] !== "Admin") {
                     </ul>
                 </div>
             </nav>
+
             <script defer>
                 const body = document.querySelector("body"),
                     modeToggle = document.querySelector(".mode-toggle");
@@ -214,6 +215,7 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['userRole'] !== "Admin") {
 
                 });
             </script>
+
         </aside>
         <main class="page-main">
 

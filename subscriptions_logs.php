@@ -117,11 +117,11 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['userRole'] !== "Admin") {
                                 <span class="link-name">Enter Hours</span>
                             </a>
                         </li>
-                        <li><a href="changes_logs.php">
+                        <!-- <li><a href="changes_logs.php">
                                 <i class="fa-solid fa-gear"></i>
                                 <span class="link-name">Changes Logs</span>
                             </a>
-                        </li>
+                        </li> -->
                         <li><a href="subscriptions_logs.php">
                                 <i class="fa-solid fa-gear"></i>
                                 <span class="link-name active-page">Subscriptions Logs</span>
@@ -153,6 +153,7 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['userRole'] !== "Admin") {
                     </ul>
                 </div>
             </nav>
+
             <script defer>
                 const body = document.querySelector("body"),
                     modeToggle = document.querySelector(".mode-toggle");
@@ -165,13 +166,13 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['userRole'] !== "Admin") {
         </aside>
         <main class="page-main">
             <div class="page-heading">
-                <p>Subscriptions History</p>
-                <p class="sub-heading">Manage Your Subscription Status</p>
+                <p>Subscriptions Logs</p>
+                <p class="sub-heading">Review Members Subscription Status</p>
             </div>
 
             <form id="logs-form" action="subscriptions_logs.php" method="post">
                 <div class="payment-page-member-name-form logs-selection">
-                    <label for="payment-page-payment-amount" class="payment-page-name-title">Select Payment Amount</label>
+                    <label for="payment-page-payment-amount" class="payment-page-name-title">Select Option to Filter by</label>
                     <select name="fullname" id="payment-page-payment-amount" required class="payment-page-select" style="padding-right: 10px;">
                         <option value="" disabled selected>Filter by member </option>
                         <?php
@@ -210,7 +211,7 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['userRole'] !== "Admin") {
 
             <div class="log-label">
                 <i class="fa-regular fa-clock"></i>
-                <h2>All Member Payments</h2>
+                <h2> Members Payment Status</h2>
             </div>
 
             <div class="logs-info">

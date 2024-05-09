@@ -215,7 +215,7 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['userRole'] !== "Member") {
                             $addon = "ed";
                         }
                     } else {
-                        $isPaid = "<p> <span style='color:crimson;font-size: 1.6rem'> You have not Yet subscribed </span> </p>";
+                        $isPaid = "<p> <span style='color:crimson;font-size: 1.6rem'> No Previous Subscription Record </span> </p>";
                         $dateFormatted = "No Data Yet";
                         $arrears = "";
                         $addon = "ing";

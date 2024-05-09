@@ -112,12 +112,12 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['userRole'] !== "Member") {
                         </li> -->
                         <li><a href="subscriptions.php">
                                 <i class="fa-solid fa-circle-dollar-to-slot"></i>
-                                <span class="link-name active-page">Subscriptions</span>
+                                <span class="link-name ">Subscriptions</span>
                             </a>
                         </li>
                         <li><a href="community.php">
                                 <i class="fa-solid fa-clock"></i>
-                                <span class="link-name">Community Service</span>
+                                <span class="link-name active-page">Community Service</span>
                             </a>
                         </li>
                         <li><a href="settings.php">

@@ -168,11 +168,11 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['userRole'] !== "Admin") {
                                 <span class="link-name active-page">Enter Hours</span>
                             </a>
                         </li>
-                        <li><a href="changes_logs.php">
+                        <!-- <li><a href="changes_logs.php">
                                 <i class="fa-solid fa-gear"></i>
                                 <span class="link-name">Changes Logs</span>
                             </a>
-                        </li>
+                        </li> -->
                         <li><a href="subscriptions_logs.php">
                                 <i class="fa-solid fa-gear"></i>
                                 <span class="link-name">Subscriptions Logs</span>

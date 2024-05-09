@@ -65,8 +65,12 @@ session_start();
         function validateStep1() {
             const firstName = document.getElementById('username1').value.trim();
             const lastName = document.getElementById('username2').value.trim();
+
             if (firstName === '' || lastName === '') {
                 alert('Please fill in both first name and last name.');
+            } else if (!/^[A-Za-z]+$/.test(firstName) || !/^[A-Za-z]+$/.test(lastName)) {
+                alert("Name should contain only letters");
+                return;
             } else {
                 document.getElementById('step1').style.opacity = '0';
                 setTimeout(function() {
@@ -75,6 +79,8 @@ session_start();
                     document.getElementById('step2').style.display = 'block';
                 }, 500);
             }
+
+
         }
 
         function nextStep() {
@@ -116,77 +122,77 @@ session_start();
                         <div class="items">
                             <div class="uname">
                                 <label for="username">First Name</label>
-                                <input type="text" id="username1" name="firstname" required autocomplete="off">
+                                <input type="text" id="username1" name="firstname" required autocomplete="off" ">
                             </div>
 
-                            <div class="uname">
+                            <div class=" uname">
                                 <label for="username">Last Name</label>
-                                <input type="text" id="username2" name="lastname" required autocomplete="off">
+                                <input type="text" id="username2" name="lastname" required autocomplete="off" ">
                             </div>
 
 
                         </div>
 
 
-                        <div class="error">
-                            <?php
+                        <div class=" error">
+                                <?php
 
-                            if (isset($_SESSION['error'])) {
-                                echo "<p id='error'>Passwords do not match!<p>";
-                                session_unset();
-                            }
+                                if (isset($_SESSION['error'])) {
+                                    echo "<p id='error'>Passwords do not match!<p>";
+                                    session_unset();
+                                }
 
-                            ?>
+                                ?>
 
-                        </div>
-
-
-
-                        <div class="bottom">
-
-                            <button type="button" onclick="validateStep1()" class="set-pointer"> Next </button>
-                            <input type="button" value="Go Back to Login" onclick="history.back()" class="signup-page-input-button">
-                        </div>
-
-                    </div>
-                    <div id="step2" class="step" style="opacity: 0; display: none;">
-                        <div class="items">
-                            <div class="uname">
-                                <label for="username">Email</label>
-                                <input type="email" id="username" name="email" required autocomplete="off">
                             </div>
 
-                            <div class="pass">
-                                <label for="password">Password - maximum 16 characters</label>
-                                <input type="password" id="password" name="password" maxlength="16" required>
 
-                                <div class="showPasswordDiv">
-                                    <label id="showpass" for="showPass">Show Password</label>
-                                    <input type="checkbox" id="showpass" onclick="showPass()">
+
+                            <div class="bottom">
+
+                                <button type="button" onclick="validateStep1()" class="set-pointer"> Next </button>
+                                <input type="button" value="Go Back to Login" onclick="history.back()" class="signup-page-input-button">
+                            </div>
+
+                        </div>
+                        <div id="step2" class="step" style="opacity: 0; display: none;">
+                            <div class="items">
+                                <div class="uname">
+                                    <label for="username">Email</label>
+                                    <input type="email" id="username" name="email" required autocomplete="off">
+                                </div>
+
+                                <div class="pass">
+                                    <label for="password">Password - maximum 16 characters</label>
+                                    <input type="password" id="password" name="password" maxlength="16" required>
+
+                                    <div class="showPasswordDiv">
+                                        <label id="showpass" for="showPass">Show Password</label>
+                                        <input type="checkbox" id="showpass" onclick="showPass()">
+                                    </div>
+
+                                </div>
+
+                                <div class="pass">
+                                    <label for="password">Re-Type password</label>
+                                    <input type="password" id="password2" name="password2" maxlength="16" required>
+
+                                    <div class="showPasswordDiv">
+                                        <label id="showpass" for="showPass">Show Password</label>
+                                        <input type="checkbox" id="showpass" onclick="showPass2()">
+                                    </div>
+
                                 </div>
 
                             </div>
 
-                            <div class="pass">
-                                <label for="password">Re-Type password</label>
-                                <input type="password" id="password2" name="password2" maxlength="16" required>
-
-                                <div class="showPasswordDiv">
-                                    <label id="showpass" for="showPass">Show Password</label>
-                                    <input type="checkbox" id="showpass" onclick="showPass2()">
-                                </div>
+                            <div class="bottom">
+                                <input type="submit" value="Sign Up">
+                                <button type="button" onclick="previousStep()"> Go back </button>
 
                             </div>
 
                         </div>
-
-                        <div class="bottom">
-                            <input type="submit" value="Sign Up">
-                            <button type="button" onclick="previousStep()"> Go back </button>
-
-                        </div>
-
-                    </div>
                 </form>
             </div>
         </div>

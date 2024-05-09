@@ -5,3 +5,5 @@ change payment ID for subscription to date updated, so got to add that to the da
 add the ability to delete as admin from the logs?
 add validation on first name and last name on account signup
 add beginning pop up for newly signup users.
+database trigger to cleanse community table every year??
+ad teh two changes logs pages after presentation
